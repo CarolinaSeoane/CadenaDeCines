@@ -14,7 +14,7 @@ public class Reserva {
     private Funcion funcion;
     private List<Asiento> asientos;
     private List<Producto> productos;
-    private int costoTotal;
+    private float costoTotal;
     private String codigoDeReserva;
 
 }
