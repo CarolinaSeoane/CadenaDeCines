@@ -1,14 +1,21 @@
 package Business;
 
+import Business.SusbcribersObserver.Notificador;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 public class AsignadorDeHorarios {
 
-    private List<Suscriptor> suscriptores;
+    private Notificador notificador;
+
+    public void asignarHorarios(){
+
+
+
+        //Despues de asignar, avisa que hay nuevas funciones
+        notificador.notificar();
+    }
 
 }
