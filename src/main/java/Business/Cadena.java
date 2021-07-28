@@ -1,5 +1,6 @@
 package Business;
 
+import Business.PlanificationStrategy.*;
 import Security.SuperAdministrador;
 import Security.Usuario;
 import lombok.Data;
@@ -32,10 +33,19 @@ public class Cadena {
             instance.usuarios = new ArrayList<>();
             instance.superAdministradores = new ArrayList<>();
             instance.productos = new ArrayList<>();
-            instance.planificacionActual = new PlanificadorA();
         }
         return instance;
     }
 
+    public void elegirPlanificacion(int valor){ //Provisorio. Definir cómo queremos que se setee
+        if(valor == 1){
+            planificacionActual = new PlanificadorA();
+        }else{
+            planificacionActual = new PlanificadorB();
+        }
+    }
 
+    public void planificarPeliculas(){
+        planificacionActual.planificar();
+    }
 }
