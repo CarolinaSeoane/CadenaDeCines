@@ -11,12 +11,15 @@ import java.util.List;
 public class Pelicula {
 
     private String titulo;
-    private String descripcion;
     private String actores;
     private String director;
     private int duracion;
     private List<Genero> generos;
     private Boolean ATP;
-    private List<Comentario> comentarios;
+    //private List<Comentario> comentarios;
+
+    public Boolean esDeGenero(Genero unGenero) {
+        return this.generos.contains(unGenero);
+    }
 
 }
