@@ -2,6 +2,7 @@ package BusinessTests;
 
 import Business.Asiento;
 import Business.Pelicula;
+import Business.Sala;
 import org.junit.Before;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -21,7 +22,12 @@ import static Business.Enums.Genero.*;
 *                                                   - Catch Me If You Can
 *
 *                   ---> 2 Cines:                   - CineA [3 salas]
+*                                                       * SalaA1: asientos (A1_A1, A1_A2)
+*                                                       * SalaA2: asientos (A2_A1)
+*                                                       * SalaA3: asientos (A3_A1, A3_A2)
 *                                                   - CineB [2 salas]
+*                                                       * SalaB1: asientos (B1_A1)
+*                                                       * SalaB2: asientos (B2_A1, B2_A2)
 *
 * */
 
@@ -37,7 +43,21 @@ public class TestResources {
     protected Pelicula catchMeIfYouCan;
 
     // Asientos
-    protected Asiento asiento;
+    protected Asiento A1_A1;
+    protected Asiento A1_A2;
+    protected Asiento A2_A1;
+    protected Asiento A3_A1;
+    protected Asiento A3_A2;
+    protected Asiento B1_A1;
+    protected Asiento B2_A1;
+    protected Asiento B2_A2;
+
+    // Salas
+    protected Sala salaA1;
+    protected Sala salaA2;
+    protected Sala salaA3;
+    protected Sala salaB1;
+    protected Sala salaB2;
 
 
     @Before
@@ -49,7 +69,7 @@ public class TestResources {
                 "Scarlett Johansson, Rachel Weisz, David Harbour, Robert Downey Jr.",
                 "Cate Shortland",
                 134,
-                Stream.of(ACCION).collect(Collectors.toList()),
+                Stream.of(ACCION, THRILLER, CIENCIAFICCION, AVENTURAS, FANTASIA).collect(Collectors.toList()),
                 true);
 
         // Volver Al Futuro
@@ -109,7 +129,23 @@ public class TestResources {
 
     @Before
     public void inicializarAsientos() {
-        this.asiento = new Asiento(500, "1A", true);
+        this.A1_A1 = new Asiento(300, "A1_A1", true);
+        this.A1_A2 = new Asiento(500, "A1_A2", true);
+        this.A2_A1 = new Asiento(400, "A2_A1", true);
+        this.A3_A1 = new Asiento(600, "A3_A1", true);
+        this.A3_A2 = new Asiento(400, "A3_A2", true);
+        this.B1_A1 = new Asiento(500, "B1_A1", true);
+        this.B2_A1 = new Asiento(400, "B2_A1", true);
+        this.B2_A2 = new Asiento(600, "B2_A2", true);
+    }
+
+    @Before
+    public void inicializarSalas() {
+        this.salaA1 = new Sala(Stream.of(A1_A1, A1_A2).collect(Collectors.toList()));
+        this.salaA2 = new Sala(Stream.of(A2_A1).collect(Collectors.toList()));
+        this.salaA3 = new Sala(Stream.of(A3_A1, A3_A2).collect(Collectors.toList()));
+        this.salaB1 = new Sala(Stream.of(B1_A1).collect(Collectors.toList()));
+        this.salaB2 = new Sala(Stream.of(B2_A1, B2_A2).collect(Collectors.toList()));
     }
 
 }

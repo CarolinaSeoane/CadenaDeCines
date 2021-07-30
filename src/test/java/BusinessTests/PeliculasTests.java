@@ -12,8 +12,18 @@ public class PeliculasTests extends TestResources {
     }
 
     @Test
-    public void elAsientoEs1a() {
-        Assert.assertEquals("1A", asiento.getNroAsiento());
+    public void ratatouilleEsInfantil() {
+        Assert.assertEquals(true, ratatouille.esDeGenero(INFANTIL));
+    }
+
+    @Test
+    public void jokerNoEsATP() {
+        Assert.assertFalse(joker.getATP());
+    }
+
+    @Test
+    public void capeFearDura128Minutos() {
+        Assert.assertEquals(128, capeFear.getDuracion());
     }
 
 }
