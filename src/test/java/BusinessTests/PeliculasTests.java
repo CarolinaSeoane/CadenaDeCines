@@ -1,10 +1,16 @@
 package BusinessTests;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import static Business.Enums.Genero.*;
 
 public class PeliculasTests extends TestResources {
+
+    @Before
+    public void inicializar() {
+        this.inicializarPeliculas();
+    }
 
     @Test
     public void blackWidowEsDeAccion() {

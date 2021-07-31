@@ -59,8 +59,6 @@ public class TestResources {
     protected Sala salaB1;
     protected Sala salaB2;
 
-
-    @Before
     public void inicializarPeliculas() {
 
         // Black Widow
@@ -127,7 +125,6 @@ public class TestResources {
                 false);
     }
 
-    @Before
     public void inicializarAsientos() {
         this.A1_A1 = new Asiento(300, "A1_A1", true);
         this.A1_A2 = new Asiento(500, "A1_A2", true);
@@ -139,7 +136,6 @@ public class TestResources {
         this.B2_A2 = new Asiento(600, "B2_A2", true);
     }
 
-    @Before
     public void inicializarSalas() {
         this.salaA1 = new Sala(Stream.of(A1_A1, A1_A2).collect(Collectors.toList()));
         this.salaA2 = new Sala(Stream.of(A2_A1).collect(Collectors.toList()));
