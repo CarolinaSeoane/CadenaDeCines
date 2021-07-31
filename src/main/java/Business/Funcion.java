@@ -3,6 +3,7 @@ package Business;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +24,17 @@ public class Funcion {
     }
 
     private void ocuparAsientos(List<Asiento> asientos) {
-        // Buscar por Key asiento y poner False a la disponibilidad
+        asientos.forEach((asiento) -> {this.ocuparAsiento(asiento);});
     }
 
+    private void ocuparAsiento(Asiento asiento) {
+        if(disponibilidad.containsKey(asiento)) {
+            disponibilidad.put(asiento, false);
+        }
+    }
+
+    public Boolean estaDisponible(Asiento unAsiento) {
+        return disponibilidad.get(unAsiento);
+    }
 
 }

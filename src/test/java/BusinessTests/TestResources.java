@@ -1,9 +1,10 @@
 package BusinessTests;
 
-import Business.Asiento;
-import Business.Pelicula;
-import Business.Sala;
+import Business.*;
 import org.junit.Before;
+
+import java.util.Date;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static Business.Enums.Genero.*;
@@ -58,6 +59,15 @@ public class TestResources {
     protected Sala salaA3;
     protected Sala salaB1;
     protected Sala salaB2;
+
+    // Funciones
+    protected Funcion funcionA_A1_blackWidow;
+
+    // Asignador de Horarios
+    protected AsignadorDeHorarios asignadorDeHorarios;
+
+    // Fechas
+    //protected Date fecha1;
 
     public void inicializarPeliculas() {
 
@@ -142,6 +152,11 @@ public class TestResources {
         this.salaA3 = new Sala(Stream.of(A3_A1, A3_A2).collect(Collectors.toList()));
         this.salaB1 = new Sala(Stream.of(B1_A1).collect(Collectors.toList()));
         this.salaB2 = new Sala(Stream.of(B2_A1, B2_A2).collect(Collectors.toList()));
+    }
+
+    public void inicializarFunciones() {
+        this.asignadorDeHorarios = new AsignadorDeHorarios();
+        this.funcionA_A1_blackWidow = asignadorDeHorarios.crearFuncion(blackWidow, new Date(), salaA1);
     }
 
 }
