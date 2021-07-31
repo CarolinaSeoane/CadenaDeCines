@@ -7,7 +7,7 @@ Sistema destinado a la **venta de entradas por internet** de una cadena de cines
 
 
 ## Información complementaria ⚙️
-
+* [Consigna](https://docs.google.com/document/d/1MEDe5afwSbCY26yUiI2aOA1W2adVjBYBqx1JpgOfF34/edit?usp=sharing)
 * [Diagrama de clases](https://lucid.app/lucidchart/invitations/accept/inv_28e72fbd-acc1-49cf-8cce-74e3ce45c9f5)
 * [Diagrama Entidad Relación](https://lucid.app/lucidchart/invitations/accept/inv_28e72fbd-acc1-49cf-8cce-74e3ce45c9f5)
 * [Wireframes](https://lucid.app/lucidchart/invitations/accept/inv_28e72fbd-acc1-49cf-8cce-74e3ce45c9f5)
