@@ -25,5 +25,8 @@ public class Cine {
     }
 */
 
+    public void recibirPeliculas(List<Pelicula> altaPrioridad, List<Pelicula> mediaPrioridad, List<Pelicula> bajaPrioridad){
+        // TODO: Deberiamos tener un metodo para distinguir qué cines pasan las diferentes prioridades
+    }
 
 }

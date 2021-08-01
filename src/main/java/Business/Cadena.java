@@ -18,6 +18,7 @@ public class Cadena {
     private List<Producto> productos;
     private Planificador planificacionActual;
     private int porcentajeGanancia;
+    private int estrategiaDePlanificacion = 1; // 1 es Normal. 2 es Infantil. El admin hace el set con un botón
 
     //SINGLETON
 
@@ -37,15 +38,16 @@ public class Cadena {
         return instance;
     }
 
-    public void elegirPlanificacion(int valor){ //Provisorio. Definir cómo queremos que se setee
-        if(valor == 1){
-            planificacionActual = new PlanificadorA();
+    public Planificador elegirPlanificacion(){ //Uso switch porque podrian ser mas de dos
+        if(estrategiaDePlanificacion == 1){
+            return new PlanificadorEstandar();
         }else{
-            planificacionActual = new PlanificadorB();
+            return new PlanificadorInfantil();
         }
     }
 
     public void planificarPeliculas(){
+        planificacionActual = this.elegirPlanificacion();
         planificacionActual.planificar();
     }
 }
