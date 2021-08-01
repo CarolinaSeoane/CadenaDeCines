@@ -16,7 +16,7 @@ public class Cadena {
     private List<Usuario> usuarios;
     private List<SuperAdministrador> superAdministradores;
     private List<Producto> productos;
-    private Planificador planificacionActual;
+    private Planificador planificador;
     private int porcentajeGanancia;
     private int estrategiaDePlanificacion = 1; // 1 es Normal. 2 es Infantil. El admin hace el set con un botón
 
@@ -34,20 +34,15 @@ public class Cadena {
             instance.usuarios = new ArrayList<>();
             instance.superAdministradores = new ArrayList<>();
             instance.productos = new ArrayList<>();
+            instance.planificador = new Planificador();
         }
         return instance;
     }
 
-    public Planificador elegirPlanificacion(){ //Uso switch porque podrian ser mas de dos
-        if(estrategiaDePlanificacion == 1){
-            return new PlanificadorEstandar();
-        }else{
-            return new PlanificadorInfantil();
-        }
-    }
+
 
     public void planificarPeliculas(){
-        planificacionActual = this.elegirPlanificacion();
-        planificacionActual.planificar();
+        planificador.elegirPlanificacion(estrategiaDePlanificacion);
+        planificador.planificar();
     }
 }

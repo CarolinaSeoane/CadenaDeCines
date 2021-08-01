@@ -22,4 +22,6 @@ public class Pelicula {
         return this.generos.contains(unGenero);
     }
 
+    public Boolean duraMenosDe(int unosMinutos){ return this.duracion < unosMinutos; }
+
 }
