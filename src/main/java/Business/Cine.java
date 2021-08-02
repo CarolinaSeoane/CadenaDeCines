@@ -14,8 +14,9 @@ public class Cine {
 
     private String nombre;
     private String direccion;
-    private List<Administrador> administradores;
-    private Map<Sala,List<Funcion>> funciones;
+   // private List<Administrador> administradores;
+   // private Map<Sala,List<Funcion>> funciones;
+    private AsignadorDeHorarios asignadorDeHorarios;
 
 /*
     public Reserva comprarEntradas(Usuario usr, Funcion funcion, List<Asiento> asientos, List<Producto> productos) {
@@ -25,8 +26,8 @@ public class Cine {
     }
 */
 
-    public void recibirPeliculas(List<Pelicula> altaPrioridad, List<Pelicula> mediaPrioridad, List<Pelicula> bajaPrioridad){
-        // TODO: Deberiamos tener un metodo para distinguir qué cines pasan las diferentes prioridades
+    public void recibirPeliculas(List<Pelicula> peliculas) {
+        asignadorDeHorarios.recibirPeliculas(peliculas);
     }
 
 }

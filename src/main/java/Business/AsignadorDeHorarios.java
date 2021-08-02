@@ -14,11 +14,16 @@ import java.util.Map;
 public class AsignadorDeHorarios {
 
     //private Notificador notificador;
+    private List<Pelicula> peliculas;
 
    /* public void asignarHorarios(){
         //Despues de asignar, avisa que hay nuevas funciones
         notificador.notificar();
     }*/
+
+    public void recibirPeliculas(List<Pelicula> peliculas) {
+        peliculas.addAll(peliculas);
+    }
 
     public Funcion crearFuncion(Pelicula p, Date f, Sala s) {
         List<Asiento> a = s.getAsientos();

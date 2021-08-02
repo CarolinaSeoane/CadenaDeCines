@@ -3,6 +3,7 @@ package BusinessTests;
 import Business.*;
 import org.junit.Before;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,14 +23,19 @@ import static Business.Enums.Genero.*;
 *                                                   - Cape Fear
 *                                                   - Catch Me If You Can
 *
-*                   ---> 2 Cines:                   - CineA [3 salas]
-*                                                       * SalaA1: asientos (A1_A1, A1_A2)
-*                                                       * SalaA2: asientos (A2_A1)
-*                                                       * SalaA3: asientos (A3_A1, A3_A2)
-*                                                   - CineB [2 salas]
-*                                                       * SalaB1: asientos (B1_A1)
-*                                                       * SalaB2: asientos (B2_A1, B2_A2)
+*                   ---> 2 Cines:                   - CineA:    [3 salas]   * SalaA1: asientos (A1_A1, A1_A2)
+*                                                                           * SalaA2: asientos (A2_A1)
+*                                                                           * SalaA3: asientos (A3_A1, A3_A2)
 *
+*                                                               [Asignador] * Asignador De Horarios A
+*
+*
+*                                                   - CineB:    [2 salas]   * SalaB1: asientos (B1_A1)
+*                                                                           * SalaB2: asientos (B2_A1, B2_A2)
+*
+ *                                                              [Asignador] * Asignador De Horarios B
+ *
+ *
 * */
 
 public class TestResources {
@@ -63,11 +69,19 @@ public class TestResources {
     // Funciones
     protected Funcion funcionA_A1_blackWidow;
 
+    // Cines
+    protected Cine cineA;
+    protected Cine cineB;
+
     // Asignador de Horarios
-    protected AsignadorDeHorarios asignadorDeHorarios;
+    protected AsignadorDeHorarios asignadorDeHorarios; //este despues lo borro. Lo use para que me cree una funcion
+    protected AsignadorDeHorarios asignadorDeHorariosA;
+    protected AsignadorDeHorarios asignadorDeHorariosB;
 
     // Fechas
     //protected Date fecha1;
+
+    protected Cadena cadena;
 
     public void inicializarPeliculas() {
 
@@ -155,8 +169,25 @@ public class TestResources {
     }
 
     public void inicializarFunciones() {
-        this.asignadorDeHorarios = new AsignadorDeHorarios();
+        this.asignadorDeHorarios = new AsignadorDeHorarios(new ArrayList<>());
         this.funcionA_A1_blackWidow = asignadorDeHorarios.crearFuncion(blackWidow, new Date(), salaA1);
+    }
+
+    public void inicializarAsignadoresDeHorarios() {
+        this.asignadorDeHorariosA = new AsignadorDeHorarios(new ArrayList<>());
+        this.asignadorDeHorariosB = new AsignadorDeHorarios(new ArrayList<>());
+    }
+
+    public void inicializarCines() {
+        this.cineA = new Cine("CineA", "CineAPiso1", asignadorDeHorariosA);
+        this.cineB = new Cine("CineB", "CineBPiso1", asignadorDeHorariosB);
+    }
+
+    public void inicializarCadena() {
+        this.cadena = Cadena.getInstance();
+        cadena.setCines(Stream.of(cineA, cineB).collect(Collectors.toList()));
+        cadena.setPeliculas(Stream.of(blackWidow, volverAlFuturo, ratatouille, joker, snatch, capeFear, catchMeIfYouCan).collect(Collectors.toList()));
+        cadena.setPorcentajeGanancia(100);
     }
 
 }

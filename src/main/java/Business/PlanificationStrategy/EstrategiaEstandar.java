@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 El planificador se basa en dos parámetros   ---> ¿Pertenece a un género popular?
                                             ---> ¿Es ATP?
 
-Géneros populares: ACCION, CIENCIAFICCION, COMEDIA, DRAMA, TERROR, INFANTIL.
+Géneros populares: ACCION, AVENTURAS, CIENCIAFICCION, FANTASIA, ROMANCE, TERROR, THRILLER
 
 Procedimiento: Le pide a la Cadena la lista de películas y, a medida que la recorre,
 decide para cada una qué prioridad le pertenece. No tomamos en cuenta la cantidad
