@@ -66,9 +66,22 @@ public class Planificador {
     private void enviarPeliculasALosCines(List<Pelicula> pelisPrioridadAlta, List<Pelicula> pelisPrioridadMedia, List<Pelicula> pelisPrioridadBaja) {
 
         List<Cine> listaDeCines = Cadena.getInstance().getCines();
+        int listSize = listaDeCines.size();
 
+        // Las peliculas de prioridad alta van a todos los cines
+        listaDeCines.forEach((cine)->cine.recibirPeliculas(pelisPrioridadAlta));
 
-        //TODO: aca le enviamos a cada cine las peliculas que correspondan de acuerdo al comentario que puse arriba.
+        // Las de prioridad media van a la mitad de los cines (agarro la primer mitad)
+        int mitadCines = (int) Math.ceil(listSize / 2);
+
+        for (int i = 0; i < mitadCines; i++)
+            listaDeCines.get(i).recibirPeliculas(pelisPrioridadMedia);
+
+        // Las de prioridad baja van a 1/3 de los cines (agarro desde el final de la lista)
+        int unTercioCines = (int) Math.floor(listSize / 3);
+
+        for (int i = listSize - 1; i >= (listSize - unTercioCines); i--)
+            listaDeCines.get(i).recibirPeliculas(pelisPrioridadBaja);
 
     }
 
