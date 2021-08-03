@@ -44,21 +44,22 @@ public class EstrategiaEstandar implements PlanificationStrategy {
 
     List<Genero> generosPopulares = Stream.of(ACCION, AVENTURAS, CIENCIAFICCION, FANTASIA, ROMANCE, TERROR, THRILLER).collect(Collectors.toList());
 
-    @Override
-    public void darPrioridadAPeliculas(List<Pelicula> todasLasPelis, List<Pelicula> prioridadAlta, List<Pelicula> prioridadMedia, List<Pelicula> prioridadBaja) {
-        for(Pelicula pelicula : todasLasPelis) {
-            if(this.esDeGeneroPopular(pelicula)){
-                prioridadAlta.add(pelicula);
-            }else if(pelicula.getATP()) {
-                prioridadMedia.add(pelicula);
-            }else{
-                prioridadBaja.add(pelicula);
-            }
-        }
-    }
-
     public boolean esDeGeneroPopular(Pelicula unaPelicula){
         return unaPelicula.getGeneros().stream().anyMatch(n -> generosPopulares.contains(n));
     }
 
+    @Override
+    public List<Pelicula> seleccionarPrioridadALTA(List<Pelicula> todasLasPelis) {
+        return todasLasPelis.stream().filter((pelicula)->(this.esDeGeneroPopular(pelicula))).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Pelicula> seleccionarPrioridadMEDIA(List<Pelicula> todasLasPelis) {
+        return todasLasPelis.stream().filter((pelicula)->(!this.esDeGeneroPopular(pelicula) && pelicula.getATP())).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Pelicula> seleccionarPrioridadBAJA(List<Pelicula> todasLasPelis) {
+        return todasLasPelis.stream().filter((pelicula)->(!this.esDeGeneroPopular(pelicula) && !pelicula.getATP())).collect(Collectors.toList());
+    }
 }

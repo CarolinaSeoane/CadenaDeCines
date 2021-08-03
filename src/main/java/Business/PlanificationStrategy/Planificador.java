@@ -27,9 +27,6 @@ import java.util.*;
 public class Planificador {
 
     private PlanificationStrategy estrategiaActual;
-    private List<Pelicula> pelisPrioridadAlta;
-    private List<Pelicula> pelisPrioridadMedia;
-    private List<Pelicula> pelisPrioridadBaja;
 
 
     /*  *****   *****   Singleton   *****   *****   */
@@ -39,7 +36,7 @@ public class Planificador {
     private Planificador() {}
 
     public static Planificador getInstance() {
-        if(instance == null){
+        if(instance == null) {
             instance = new Planificador();
             instance.estrategiaActual = new EstrategiaEstandar();
         }
@@ -51,37 +48,35 @@ public class Planificador {
 
     public void planificar() {
 
-        Cadena cadena = Cadena.getInstance();
-        List<Pelicula> todasLasPelis = cadena.getPeliculas();
+        List<Pelicula> todasLasPelis = Cadena.getInstance().getPeliculas();
 
-        pelisPrioridadAlta = new ArrayList<>();
-        pelisPrioridadMedia = new ArrayList<>();
-        pelisPrioridadBaja = new ArrayList<>();
+        List<Pelicula> ALTA = estrategiaActual.seleccionarPrioridadALTA(todasLasPelis);
+        List<Pelicula> MEDIA = estrategiaActual.seleccionarPrioridadMEDIA(todasLasPelis);
+        List<Pelicula> BAJA = estrategiaActual.seleccionarPrioridadBAJA(todasLasPelis);
 
-        estrategiaActual.darPrioridadAPeliculas(todasLasPelis, pelisPrioridadAlta, pelisPrioridadMedia, pelisPrioridadBaja);
-
-        this.enviarPeliculasALosCines(pelisPrioridadAlta, pelisPrioridadMedia, pelisPrioridadBaja);
+        this.enviarPeliculasALosCines(ALTA, MEDIA, BAJA);
     }
 
-    private void enviarPeliculasALosCines(List<Pelicula> pelisPrioridadAlta, List<Pelicula> pelisPrioridadMedia, List<Pelicula> pelisPrioridadBaja) {
 
-        List<Cine> listaDeCines = Cadena.getInstance().getCines();
-        int listSize = listaDeCines.size();
+    private void enviarPeliculasALosCines(List<Pelicula> ALTA, List<Pelicula> MEDIA, List<Pelicula> BAJA) {
 
-        // Las peliculas de prioridad alta van a todos los cines
-        listaDeCines.forEach((cine)->cine.recibirPeliculas(pelisPrioridadAlta));
+        List<Cine> cines = Cadena.getInstance().getCines();
+        int listSize = cines.size();
 
-        // Las de prioridad media van a la mitad de los cines (agarro la primer mitad)
+        // ALTA
+        cines.forEach((cine)->cine.recibirPeliculas(ALTA));
+
+        // MEDIA
         int mitadCines = (int) Math.ceil(listSize / 2);
 
-        for (int i = 0; i < mitadCines; i++)
-            listaDeCines.get(i).recibirPeliculas(pelisPrioridadMedia);
+        for (int i = 0; i <= mitadCines; i++)
+            cines.get(i).recibirPeliculas(MEDIA);
 
-        // Las de prioridad baja van a 1/3 de los cines (agarro desde el final de la lista)
+        // BAJA
         int unTercioCines = (int) Math.floor(listSize / 3);
 
-        for (int i = listSize - 1; i >= (listSize - unTercioCines); i--)
-            listaDeCines.get(i).recibirPeliculas(pelisPrioridadBaja);
+        for (int i = (listSize - 1); i >= (listSize - unTercioCines); i--)
+            cines.get(i).recibirPeliculas(BAJA);
 
     }
 

@@ -27,7 +27,7 @@ Géneros Familiares = ACCION, CIENCIAFICCION, COMEDIA, FANTASIA, AVENTURAS
 @Data
 public class EstrategiaInfantil implements PlanificationStrategy {
 
-    List<Genero> generosFamiliares = Stream.of(ACCION, AVENTURAS, CIENCIAFICCION, COMEDIA, DRAMA, FANTASIA).collect(Collectors.toList());
+    List<Genero> generosFamiliares = Stream.of(ACCION, AVENTURAS, CIENCIAFICCION, COMEDIA, FANTASIA).collect(Collectors.toList());
 
     int minutosParaQueSeaCortaDuracion = 130;
 
@@ -41,34 +41,19 @@ public class EstrategiaInfantil implements PlanificationStrategy {
     int cortePrioridadAlta  = 30;
     int cortePrioridadMedia = 15;
 
-    @Override
-    public void darPrioridadAPeliculas(List<Pelicula> todasLasPelis, List<Pelicula> prioridadAlta, List<Pelicula> prioridadMedia, List<Pelicula> prioridadBaja) {
-        for(Pelicula pelicula : todasLasPelis) {
-
-            int puntajePelicula = determinarPuntaje(pelicula);
-
-            if(puntajePelicula > cortePrioridadAlta){
-                prioridadAlta.add(pelicula);
-            }else if(puntajePelicula >= cortePrioridadMedia ) {
-                prioridadMedia.add(pelicula);
-            }else{
-                prioridadBaja.add(pelicula);
-            }
-        }
-    }
 
     public int determinarPuntaje(Pelicula unaPelicula){
         int puntajeTotal = 0;
-        if(unaPelicula.esDeGenero(INFANTIL)){
+        if(unaPelicula.esDeGenero(INFANTIL)) {
             puntajeTotal += puntajeInfantil;
         }
-        if(unaPelicula.getATP()){
+        if(unaPelicula.getATP()) {
             puntajeTotal += puntajeATP;
         }
-        if(this.esDeGeneroFamiliar(unaPelicula)){
+        if(this.esDeGeneroFamiliar(unaPelicula)) {
             puntajeTotal += puntajeFamiliar;
         }
-        if(unaPelicula.duraMenosDe(minutosParaQueSeaCortaDuracion)){
+        if(unaPelicula.duraMenosDe(minutosParaQueSeaCortaDuracion)) {
             puntajeTotal += puntajeCortaDuracion;
         }
         return puntajeTotal;
@@ -76,6 +61,21 @@ public class EstrategiaInfantil implements PlanificationStrategy {
 
     public boolean esDeGeneroFamiliar(Pelicula unaPelicula){
         return unaPelicula.getGeneros().stream().anyMatch(n -> generosFamiliares.contains(n));
+    }
+
+    @Override
+    public List<Pelicula> seleccionarPrioridadALTA(List<Pelicula> todasLasPelis) {
+        return todasLasPelis.stream().filter((pelicula)->(this.determinarPuntaje(pelicula) > cortePrioridadAlta)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Pelicula> seleccionarPrioridadMEDIA(List<Pelicula> todasLasPelis) {
+        return todasLasPelis.stream().filter((pelicula)->((this.determinarPuntaje(pelicula) >= cortePrioridadMedia) && (this.determinarPuntaje(pelicula) <= cortePrioridadAlta))).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Pelicula> seleccionarPrioridadBAJA(List<Pelicula> todasLasPelis) {
+        return todasLasPelis.stream().filter((pelicula)->(this.determinarPuntaje(pelicula) < cortePrioridadMedia)).collect(Collectors.toList());
     }
 
 }

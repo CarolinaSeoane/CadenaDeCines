@@ -1,6 +1,7 @@
 package BusinessTests;
 
 import Business.*;
+import Business.PlanificationStrategy.Planificador;
 import org.junit.Before;
 
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import static Business.Enums.Genero.*;
 * Para los tests simulamos una cadena de cines con las siguientes caracteristicas:
 *
 *   1 Cadena: - cadena
+*
+*   1 planificador con estrategia estandar.
 *
 *   7 Peliculas disponibles:    - Black Widow
 *                               - Volver Al Futuro
@@ -42,13 +45,20 @@ import static Business.Enums.Genero.*;
 *                                    [Asignador] : asignadorDeHorariosB
 *
 *                               - CineC:
-*                                   [1 sala] : SalaC1 (2 asiento2: C1_A1 y C1_A2)
+*                                   [1 sala] : SalaC1 (2 asientos: C1_A1 y C1_A2)
 *
 *                                   [Asignador] : asignadorDeHorariosC
+*
 *
 * */
 
 public class TestResources {
+
+    // Cadena
+    protected Cadena cadena;
+
+    // Planificador
+    protected Planificador planificador;
 
     // Peliculas
     protected Pelicula blackWidow;
@@ -96,7 +106,7 @@ public class TestResources {
     // Fechas
     //protected Date fecha1;
 
-    protected Cadena cadena;
+
 
     public void inicializarPeliculas() {
 
@@ -151,7 +161,7 @@ public class TestResources {
                 "Robert De Niro, Gregory Peck, Robert Mitchum, Juliette Lewis",
                 "Martin Scorsese",
                 128,
-                Stream.of(THRILLER, SUSPENSO, DRAMA).collect(Collectors.toList()),
+                Stream.of(SUSPENSO, DRAMA).collect(Collectors.toList()),
                 false);
 
         // Catch Me If You Can
@@ -161,7 +171,7 @@ public class TestResources {
                 "Steven Spielberg",
                 141,
                 Stream.of(DRAMA, COMEDIA).collect(Collectors.toList()),
-                false);
+                true);
     }
 
     public void inicializarAsientos() {
@@ -208,6 +218,10 @@ public class TestResources {
         cadena.setCines(Stream.of(cineA, cineB, cineC).collect(Collectors.toList()));
         cadena.setPeliculas(Stream.of(blackWidow, volverAlFuturo, ratatouille, joker, snatch, capeFear, catchMeIfYouCan).collect(Collectors.toList()));
         cadena.setPorcentajeGanancia(100);
+    }
+
+    public void inicializarPlanificador() {
+        this.planificador = Planificador.getInstance();
     }
 
 }

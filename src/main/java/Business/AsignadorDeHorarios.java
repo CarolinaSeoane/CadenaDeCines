@@ -4,10 +4,7 @@ import Business.SusbcribersObserver.Notificador;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
@@ -21,8 +18,8 @@ public class AsignadorDeHorarios {
         notificador.notificar();
     }*/
 
-    public void recibirPeliculas(List<Pelicula> peliculas) {
-        peliculas.addAll(peliculas);
+    public void recibirPeliculas(List<Pelicula> pelis) {
+        this.peliculas.addAll(pelis);
     }
 
     public Funcion crearFuncion(Pelicula p, Date f, Sala s) {
