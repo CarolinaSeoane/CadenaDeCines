@@ -13,29 +13,39 @@ import static Business.Enums.Genero.*;
 /*
 * Para los tests simulamos una cadena de cines con las siguientes caracteristicas:
 *
+*   1 Cadena: - cadena
 *
-*       * * * * * *
-*       * Cadena  * ---> 7 Peliculas disponibles:   - Black Widow
-*       * * * * * *                                 - Volver Al Futuro
-*                                                   - Ratatouille
-*                                                   - Joker
-*                                                   - Snatch
-*                                                   - Cape Fear
-*                                                   - Catch Me If You Can
+*   7 Peliculas disponibles:    - Black Widow
+*                               - Volver Al Futuro
+*                               - Ratatouille
+*                               - Joker
+*                               - Snatch
+*                               - Cape Fear
+*                               - Catch Me If You Can
 *
-*                   ---> 2 Cines:                   - CineA:    [3 salas]   * SalaA1: asientos (A1_A1, A1_A2)
-*                                                                           * SalaA2: asientos (A2_A1)
-*                                                                           * SalaA3: asientos (A3_A1, A3_A2)
+*  3 cines: - CineA
+*           - CineB
+*           - CineC
 *
-*                                                               [Asignador] * Asignador De Horarios A
+*  Informacion de cada cine:    - CineA:
+*                                   [3 salas] : SalaA1 (2 asientos: A1_A1 y A1_A2)
+*                                               SalaA2 (1 asiento:  A2_A1)
+*                                               SalaA3 (2 asiento:  A3_A1 y A3_A2)
+*
+*                                   [Asignador] : asignadorDeHorariosA
 *
 *
-*                                                   - CineB:    [2 salas]   * SalaB1: asientos (B1_A1)
-*                                                                           * SalaB2: asientos (B2_A1, B2_A2)
+*                               - CineB:
+*                                   [2 salas] : SalaB1 (1 asiento: B1_A1)
+*                                               SalaB2 (2 asientos: B2_A1 Y B2_A2)
 *
- *                                                              [Asignador] * Asignador De Horarios B
- *
- *
+*                                    [Asignador] : asignadorDeHorariosB
+*
+*                               - CineC:
+*                                   [1 sala] : SalaC1 (2 asiento2: C1_A1 y C1_A2)
+*
+*                                   [Asignador] : asignadorDeHorariosC
+*
 * */
 
 public class TestResources {
@@ -58,6 +68,8 @@ public class TestResources {
     protected Asiento B1_A1;
     protected Asiento B2_A1;
     protected Asiento B2_A2;
+    protected Asiento C1_A1;
+    protected Asiento C1_A2;
 
     // Salas
     protected Sala salaA1;
@@ -65,6 +77,7 @@ public class TestResources {
     protected Sala salaA3;
     protected Sala salaB1;
     protected Sala salaB2;
+    protected Sala salaC1;
 
     // Funciones
     protected Funcion funcionA_A1_blackWidow;
@@ -72,11 +85,13 @@ public class TestResources {
     // Cines
     protected Cine cineA;
     protected Cine cineB;
+    protected Cine cineC;
 
     // Asignador de Horarios
     protected AsignadorDeHorarios asignadorDeHorarios; //este despues lo borro. Lo use para que me cree una funcion
     protected AsignadorDeHorarios asignadorDeHorariosA;
     protected AsignadorDeHorarios asignadorDeHorariosB;
+    protected AsignadorDeHorarios asignadorDeHorariosC;
 
     // Fechas
     //protected Date fecha1;
@@ -158,6 +173,8 @@ public class TestResources {
         this.B1_A1 = new Asiento(500, "B1_A1", true);
         this.B2_A1 = new Asiento(400, "B2_A1", true);
         this.B2_A2 = new Asiento(600, "B2_A2", true);
+        this.C1_A1 = new Asiento(600, "B2_A2", true);
+        this.C1_A2 = new Asiento(600, "B2_A2", true);
     }
 
     public void inicializarSalas() {
@@ -166,6 +183,7 @@ public class TestResources {
         this.salaA3 = new Sala(Stream.of(A3_A1, A3_A2).collect(Collectors.toList()));
         this.salaB1 = new Sala(Stream.of(B1_A1).collect(Collectors.toList()));
         this.salaB2 = new Sala(Stream.of(B2_A1, B2_A2).collect(Collectors.toList()));
+        this.salaC1 = new Sala(Stream.of(C1_A1, C1_A2).collect(Collectors.toList()));
     }
 
     public void inicializarFunciones() {
@@ -176,16 +194,18 @@ public class TestResources {
     public void inicializarAsignadoresDeHorarios() {
         this.asignadorDeHorariosA = new AsignadorDeHorarios(new ArrayList<>());
         this.asignadorDeHorariosB = new AsignadorDeHorarios(new ArrayList<>());
+        this.asignadorDeHorariosC = new AsignadorDeHorarios(new ArrayList<>());
     }
 
     public void inicializarCines() {
         this.cineA = new Cine("CineA", "CineAPiso1", asignadorDeHorariosA);
         this.cineB = new Cine("CineB", "CineBPiso1", asignadorDeHorariosB);
+        this.cineC = new Cine("CineC", "CineCPiso1", asignadorDeHorariosC);
     }
 
     public void inicializarCadena() {
         this.cadena = Cadena.getInstance();
-        cadena.setCines(Stream.of(cineA, cineB).collect(Collectors.toList()));
+        cadena.setCines(Stream.of(cineA, cineB, cineC).collect(Collectors.toList()));
         cadena.setPeliculas(Stream.of(blackWidow, volverAlFuturo, ratatouille, joker, snatch, capeFear, catchMeIfYouCan).collect(Collectors.toList()));
         cadena.setPorcentajeGanancia(100);
     }
