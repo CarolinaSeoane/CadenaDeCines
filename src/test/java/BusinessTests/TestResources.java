@@ -2,11 +2,10 @@ package BusinessTests;
 
 import Business.*;
 import Business.PlanificationStrategy.Planificador;
+import org.joda.time.DateTime;
 import org.junit.Before;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static Business.Enums.Genero.*;
@@ -198,7 +197,7 @@ public class TestResources {
 
     public void inicializarFunciones() {
         this.asignadorDeHorarios = new AsignadorDeHorarios(new ArrayList<>());
-        this.funcionA_A1_blackWidow = asignadorDeHorarios.crearFuncion(blackWidow, new Date(), salaA1);
+        this.funcionA_A1_blackWidow = asignadorDeHorarios.crearFuncion(blackWidow, new DateTime(), salaA1);
     }
 
     public void inicializarAsignadoresDeHorarios() {
@@ -208,9 +207,30 @@ public class TestResources {
     }
 
     public void inicializarCines() {
-        this.cineA = new Cine("CineA", "CineAPiso1", asignadorDeHorariosA);
-        this.cineB = new Cine("CineB", "CineBPiso1", asignadorDeHorariosB);
-        this.cineC = new Cine("CineC", "CineCPiso1", asignadorDeHorariosC);
+        this.cineA = new Cine("CineA", "CineAPiso1", this.inicializarFuncionesDeA(), asignadorDeHorariosA);
+        this.cineB = new Cine("CineB", "CineBPiso1", this.inicializarFuncionesDeB(), asignadorDeHorariosB);
+        this.cineC = new Cine("CineC", "CineCPiso1", this.inicializarFuncionesDeC(), asignadorDeHorariosC);
+    }
+
+    public Map<Sala, List<Funcion>> inicializarFuncionesDeA(){ // A tiene 3 salas: A1, A2, A3
+        Map<Sala, List<Funcion>> funciones = new HashMap<>();
+        funciones.put(salaA1, new ArrayList<>());
+        funciones.put(salaA2, new ArrayList<>());
+        funciones.put(salaA3, new ArrayList<>());
+        return funciones;
+    }
+
+    public Map<Sala, List<Funcion>> inicializarFuncionesDeB(){ // B tiene 2 salas: B1, B2
+        Map<Sala, List<Funcion>> funciones = new HashMap<>();
+        funciones.put(salaB1, new ArrayList<>());
+        funciones.put(salaB2, new ArrayList<>());
+        return funciones;
+    }
+
+    public Map<Sala, List<Funcion>> inicializarFuncionesDeC(){ // C tiene 1 sala: C1
+        Map<Sala, List<Funcion>> funciones = new HashMap<>();
+        funciones.put(salaC1, new ArrayList<>());
+        return funciones;
     }
 
     public void inicializarCadena() {

@@ -2,6 +2,8 @@ package Business;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.joda.time.DateTime;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +17,7 @@ public class Funcion {
 
     private Map<Asiento,Boolean> disponibilidad;
     private Pelicula pelicula;
-    private Date fecha;
+    private DateTime fecha;
     private Sala sala;
 
     public int comprarAsientos(List<Asiento> asientos) {
