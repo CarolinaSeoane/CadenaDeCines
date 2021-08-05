@@ -32,7 +32,7 @@ public class Cine {
     }
 
     public void realizarPlanificacionSemanal() {
-        this.funciones = asignadorDeHorarios.asignarHorarios(funciones);
+        asignadorDeHorarios.asignarHorarios(funciones);
     }
 
     // Metodos para Tests
@@ -52,12 +52,34 @@ public class Cine {
 
     public String buscarPeliculaPorHora(Sala unaSala, int unHorario){
         List<Funcion> funciones = this.funciones.get(unaSala);
-        String resultado = "No se encontró película en ese horario";
+        String resultado = "No dan esa película en ese horario";
         for(Funcion funcion: funciones){
             if(funcion.getFecha().getHourOfDay() == unHorario){
                 resultado = funcion.getPelicula().getTitulo();
             }
         }
         return resultado;
+    }
+
+    // Este método es solo para mostrar algo lindo por pantalla en los Test. Despues se puede borrar
+    public void mostrarFunciones() {
+        /*
+        --------------------- FUNCIONES -------------------------
+        SALA
+
+        HORA : MINUTOS  PELICULA
+        */
+        int contadorSala = 1;
+        System.out.println("------------ FUNCIONES ------------");
+        for (Map.Entry<Sala, List<Funcion>> entrada : this.funciones.entrySet()) {
+            System.out.println("SALA " + contadorSala + "\n");
+            List<Funcion> funciones = entrada.getValue();
+            for(Funcion unaFuncion : funciones){
+                // El primer numero es el dia en números del mes, para probar que esta yendo al jueves siempre
+                System.out.print(unaFuncion.getFecha().getDayOfMonth() + " " + unaFuncion.getFecha().getHourOfDay() + ":" + unaFuncion.getFecha().getMinuteOfHour() + "  " + unaFuncion.getPelicula().getTitulo() + "\n");
+            }
+            System.out.print("\n");
+        }
+
     }
 }

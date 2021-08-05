@@ -3,7 +3,6 @@ package BusinessTests;
 import Business.*;
 import Business.PlanificationStrategy.Planificador;
 import org.joda.time.DateTime;
-import org.junit.Before;
 
 import java.util.*;
 import java.util.stream.Collectors;

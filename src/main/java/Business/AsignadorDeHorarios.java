@@ -14,50 +14,60 @@ public class AsignadorDeHorarios {
     //private Notificador notificador;
     private List<Pelicula> peliculas;
 
-    public Map<Sala, List<Funcion>> asignarHorarios(Map<Sala, List<Funcion>> funciones) {
-       int cantSalasDisponibles = funciones.size();
-       DateTime fechaInicio = this.crearFechaDeInicio();
-       DateTime fechaFinal = this.crearFechaFinal(fechaInicio);
-       List<DateTime> contadores = new ArrayList<>();
-       for(int i=0; i<cantSalasDisponibles; i++){
-           DateTime aux = this.crearFechaDeInicio();
-           contadores.add(aux);
-       }
+    public void asignarHorarios(Map<Sala, List<Funcion>> funciones) {
        List<Sala> salas = new ArrayList<>(funciones.keySet());
+       DateTime fechaFinal = this.crearFechaFinal();
+       List<DateTime> contadores = new ArrayList<>();
+       for(int i=0; i<salas.size(); i++){
+           contadores.add(this.crearFechaDeInicio());
+       }
        int contadorSala = 0;
        int contadorPelicula = 0;
        int contadorFecha    = 0; // Este me dice en cual de todas las fechas estoy
        while(!this.todosLosContadoresEstanCompletos(contadores, fechaFinal)) {
-           Funcion funcion = this.crearFuncion(peliculas.get(contadorPelicula), contadores.get(contadorFecha), salas.get(contadorSala));
-           List<Funcion> funcionesDeUnaSala = funciones.get(salas.get(contadorSala));
-           funcionesDeUnaSala.add(funcion);
-           contadorSala = this.actualizarContadorSala(contadorSala, salas);
-           contadorFecha = this.actualizarContadorFecha(contadorPelicula, peliculas, contadores, contadorFecha, fechaInicio);
-           contadorPelicula = this.actualizarContadorPelicula(contadorPelicula, peliculas);
+           if(!this.unContadorLlegoAlLimite(contadores.get(contadorFecha), fechaFinal)) {
+               Funcion funcion = this.crearFuncion(peliculas.get(contadorPelicula), contadores.get(contadorFecha), salas.get(contadorSala));
+               List<Funcion> funcionesDeUnaSala = funciones.get(salas.get(contadorSala));
+               funcionesDeUnaSala.add(funcion);
+               this.actualizarHorario(contadorPelicula, contadores, contadorFecha);
+               contadorPelicula = this.actualizarContador(contadorPelicula, peliculas.size());
+           }
+           contadorSala = this.actualizarContador(contadorSala, salas.size());
+           contadorFecha = this.actualizarContador(contadorFecha, contadores.size());
        }
-
-       return funciones;
        //notificador.notificar();
     }
 
     public Boolean todosLosContadoresEstanCompletos(List<DateTime> contadores, DateTime fechaFinal){
-        return contadores.stream().allMatch(unContador -> llegoAlLimite(unContador, fechaFinal));
+        return contadores.stream().allMatch(unContador -> unContadorLlegoAlLimite(unContador, fechaFinal));
     }
 
-    private boolean llegoAlLimite(DateTime unContador, DateTime fechaFinal) {
+    private boolean unContadorLlegoAlLimite(DateTime unContador, DateTime fechaFinal) {
         return (unContador.getDayOfWeek() == fechaFinal.getDayOfWeek()) && (unContador.getHourOfDay() == fechaFinal.getHourOfDay());
     }
 
 
     public DateTime crearFechaDeInicio(){
         DateTime fechaDeHoy = new DateTime();
-        return fechaDeHoy.withHourOfDay(10); // Asumiendo que el scheduler activa la planificacion el jueves mismo
+        int diaDeLaSemana = fechaDeHoy.getDayOfWeek();
+        int diasParaElProximoJueves = this.cuantoFaltaParaElProximoJueves(diaDeLaSemana);
+        return new DateTime(fechaDeHoy.getYear(), fechaDeHoy.getMonthOfYear(), fechaDeHoy.getDayOfMonth() + diasParaElProximoJueves, 10, 0);
     }
 
-    public DateTime crearFechaFinal(DateTime fechaDeInicio){
-        //Sabemos que empieza el jueves 10 am y termina el otro jueves 10 am. Son +7 días pero pongo uno para q se pueda probar
-        DateTime aux = fechaDeInicio.plusDays(1);
-        return aux;
+    public int cuantoFaltaParaElProximoJueves(int diaDeLaSemana){
+        // 1 es Lunes. 7 es Domingo (Viene de la documentacion de Joda-Time)
+        if(diaDeLaSemana <= 4){
+            return 4 - diaDeLaSemana;
+        }else{
+            return 11 - diaDeLaSemana;
+        }
+
+    }
+
+    public DateTime crearFechaFinal(){
+        //Sabemos que empieza el jueves 10 am y termina el otro jueves 10 am.
+        //Son +7 días pero pongo 1 para hacer los Tests. Podria ser una variable del asignador
+        return this.crearFechaDeInicio().plusDays(1);
     }
 
     public void recibirPeliculas(List<Pelicula> pelis) {
@@ -72,16 +82,13 @@ public class AsignadorDeHorarios {
 
     private Map<Asiento,Boolean> generarDisponibilidad(List<Asiento> asientos) {
         Map<Asiento,Boolean> disponibilidad = new HashMap<>();
-        asientos.forEach((asiento) -> {
-            disponibilidad.put(asiento, true);
-        });
+        asientos.forEach(asiento -> disponibilidad.put(asiento, true));
         return disponibilidad;
     }
 
-    //En estos tres metodos repito logica porque reciben listas de diferentes cosas. Se puede mejorar
-    private int actualizarContadorSala(int contadorActual, List<Sala> salas) {
+    private int actualizarContador(int contadorActual, int tamanioLista){
         int nuevoContador;
-        if(contadorActual == salas.size() - 1){
+        if(contadorActual == (tamanioLista - 1)){
             nuevoContador = 0;
         }else{
             nuevoContador = contadorActual + 1;
@@ -89,38 +96,25 @@ public class AsignadorDeHorarios {
         return nuevoContador;
     }
 
-    public int actualizarContadorPelicula(int contadorActual, List<Pelicula> peliculas){
-        int nuevoContador;
-        if(contadorActual == peliculas.size() - 1){
-            nuevoContador = 0;
-        }else{
-            nuevoContador = contadorActual + 1;
-        }
-        return nuevoContador;
-    }
-
-    public int actualizarContadorFecha(int contadorPelicula, List<Pelicula> peliculas, List<DateTime> contadores, int contadorFecha, DateTime fechaDeInicio){
-        // TODO: Mejorar / Separar esto
-        // Parte 1: Actualizo el horario de la sala que use
-        int duracionLimpiezaDeSala = 30; // Minutos
+    public void actualizarHorario(int contadorPelicula, List<DateTime> contadores, int contadorFecha){
+        int duracionLimpiezaDeSala = 30;
         int duracionDeLaPelicula = peliculas.get(contadorPelicula).getDuracion();
         DateTime nuevo = contadores.get(contadorFecha).plusMinutes(duracionDeLaPelicula + duracionLimpiezaDeSala);
+        if(nuevo.getHourOfDay() >= 23 || nuevo.getHourOfDay() <= 5){
+            nuevo = this.llevarloAlSiguienteDia(contadores.get(contadorFecha)); // Lo mando al siguiente día
+
+        }
         contadores.add(contadorFecha, nuevo);
         contadores.remove(contadorFecha + 1);
-        if(contadores.get(contadorFecha).getHourOfDay() >= 21 || contadores.get(contadorFecha).getHourOfDay()<=5){
-            DateTime ultimo = this.crearFechaFinal(fechaDeInicio);; // Lo mando a la fecha que se que termino
-            contadores.add(contadorFecha, ultimo);
-            contadores.remove(contadorFecha + 1);
+    }
+
+    private DateTime llevarloAlSiguienteDia(DateTime fechaActual) {
+        if(fechaActual.getHourOfDay() < 12){
+            return fechaActual.withHourOfDay(10).withMinuteOfHour(0).withSecondOfMinute(0);
+        }else{
+            return fechaActual.plusDays(1).withHourOfDay(10).withMinuteOfHour(0).withSecondOfMinute(0);
         }
 
-        // Parte 2: Actualizo el indice para pasar a otra sala
-        int nuevoContador;
-        if(contadorFecha == contadores.size() - 1){
-            nuevoContador = 0;
-        }else{
-            nuevoContador = contadorFecha + 1;
-        }
-        return nuevoContador;
     }
 
 }
