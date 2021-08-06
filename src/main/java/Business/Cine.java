@@ -19,13 +19,6 @@ public class Cine {
     private Map<Sala, List<Funcion>> funciones;
     private AsignadorDeHorarios asignadorDeHorarios;
 
-/*
-    public Reserva comprarEntradas(Usuario usr, Funcion funcion, List<Asiento> asientos, List<Producto> productos) {
-        float precioAsientos = funcion.comprarAsientos(asientos);
-
-        return reserva;
-    }
-*/
 
     public void recibirPeliculas(List<Pelicula> peliculas) {
         asignadorDeHorarios.recibirPeliculas(peliculas);
@@ -35,7 +28,9 @@ public class Cine {
         asignadorDeHorarios.asignarHorarios(funciones);
     }
 
+
     // Metodos para Tests
+
     public int cantidadDeFunciones() {
         int total = 0;
         for (Map.Entry<Sala, List<Funcion>> entrada : this.funciones.entrySet()) {

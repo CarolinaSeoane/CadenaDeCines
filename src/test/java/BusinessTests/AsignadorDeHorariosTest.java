@@ -192,6 +192,4 @@ public class AsignadorDeHorariosTest extends TestResources {
         Assert.assertEquals("Joker", cineC.buscarPeliculaPorHora(salaC1, 17));
     }
 
-
-
 }

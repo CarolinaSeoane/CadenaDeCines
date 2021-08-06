@@ -15,8 +15,9 @@ public class Cadena {
     private List<Pelicula> peliculas;
     //private List<Usuario> usuarios;
     //private List<SuperAdministrador> superAdministradores;
-    //private List<Producto> productos;
+    private List<Producto> productos;
     private int porcentajeGanancia;
+    private int descuentoPorCombo;
 
 
     /*  *****   *****   Singleton   *****   *****   */

@@ -1,6 +1,7 @@
 package BusinessTests;
 
 import Business.*;
+import Business.Enums.Tamanio;
 import Business.PlanificationStrategy.Planificador;
 import org.joda.time.DateTime;
 
@@ -101,9 +102,15 @@ public class TestResources {
     protected AsignadorDeHorarios asignadorDeHorariosB;
     protected AsignadorDeHorarios asignadorDeHorariosC;
 
-    // Fechas
-    //protected Date fecha1;
+    // Productos
+    protected Producto pochocloChico;
+    protected Producto pochocloGrande;
+    protected Producto nachosMedianos;
+    protected Producto gaseosaGrande;
 
+    protected Combo combo1;
+    protected Combo combo2;
+    protected Combo combo3;
 
 
     public void inicializarPeliculas() {
@@ -211,7 +218,7 @@ public class TestResources {
         this.cineC = new Cine("CineC", "CineCPiso1", this.inicializarFuncionesDeC(), asignadorDeHorariosC);
     }
 
-    public Map<Sala, List<Funcion>> inicializarFuncionesDeA(){ // A tiene 3 salas: A1, A2, A3
+    public Map<Sala, List<Funcion>> inicializarFuncionesDeA() { // A tiene 3 salas: A1, A2, A3
         Map<Sala, List<Funcion>> funciones = new HashMap<>();
         funciones.put(salaA1, new ArrayList<>());
         funciones.put(salaA2, new ArrayList<>());
@@ -219,14 +226,14 @@ public class TestResources {
         return funciones;
     }
 
-    public Map<Sala, List<Funcion>> inicializarFuncionesDeB(){ // B tiene 2 salas: B1, B2
+    public Map<Sala, List<Funcion>> inicializarFuncionesDeB() { // B tiene 2 salas: B1, B2
         Map<Sala, List<Funcion>> funciones = new HashMap<>();
         funciones.put(salaB1, new ArrayList<>());
         funciones.put(salaB2, new ArrayList<>());
         return funciones;
     }
 
-    public Map<Sala, List<Funcion>> inicializarFuncionesDeC(){ // C tiene 1 sala: C1
+    public Map<Sala, List<Funcion>> inicializarFuncionesDeC() { // C tiene 1 sala: C1
         Map<Sala, List<Funcion>> funciones = new HashMap<>();
         funciones.put(salaC1, new ArrayList<>());
         return funciones;
@@ -236,11 +243,24 @@ public class TestResources {
         this.cadena = Cadena.getInstance();
         cadena.setCines(Stream.of(cineA, cineB, cineC).collect(Collectors.toList()));
         cadena.setPeliculas(Stream.of(blackWidow, volverAlFuturo, ratatouille, joker, snatch, capeFear, catchMeIfYouCan).collect(Collectors.toList()));
+        cadena.setProductos(Stream.of(pochocloChico, pochocloGrande, nachosMedianos, gaseosaGrande).collect(Collectors.toList()));
         cadena.setPorcentajeGanancia(100);
+        cadena.setDescuentoPorCombo(15);
     }
 
     public void inicializarPlanificador() {
         this.planificador = Planificador.getInstance();
+    }
+
+    public void inicializarProductos() {
+        this.pochocloChico = new ProductoSimple("Pochoclos", Tamanio.CHICO, 300);
+        this.pochocloGrande = new ProductoSimple("Pochoclos", Tamanio.GRANDE, 550);
+        this.nachosMedianos = new ProductoSimple("Nachos",Tamanio.MEDIANO, 400);
+        this.gaseosaGrande = new ProductoSimple("Gaseosa", Tamanio.GRANDE, 300);
+
+        this.combo1 = new Combo(Stream.of(pochocloGrande, gaseosaGrande).collect(Collectors.toList()));
+        this.combo2 = new Combo(Stream.of(pochocloChico, nachosMedianos, gaseosaGrande).collect(Collectors.toList()));
+        this.combo3 = new Combo(Stream.of(pochocloGrande, gaseosaGrande, gaseosaGrande).collect(Collectors.toList()));
     }
 
 }
