@@ -30,7 +30,7 @@ public class Funcion {
     }
 
     private void ocuparAsiento(Asiento asiento) {
-        if(disponibilidad.containsKey(asiento)) {
+        if(disponibilidad.containsKey(asiento) && this.estaDisponible(asiento)) {
             disponibilidad.put(asiento, false);
         }
     }
