@@ -1,5 +1,6 @@
 package BusinessTests;
 
+import Resources.TestResources;
 import org.junit.Before;
 
 public class CadenaTests extends TestResources {

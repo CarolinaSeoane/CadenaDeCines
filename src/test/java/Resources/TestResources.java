@@ -1,8 +1,9 @@
-package BusinessTests;
+package Resources;
 
 import Business.*;
 import Business.Enums.Tamanio;
 import Business.PlanificationStrategy.Planificador;
+import Controllers.TicketController;
 import org.joda.time.DateTime;
 
 import java.util.*;
@@ -112,6 +113,9 @@ public class TestResources {
     protected Combo combo2;
     protected Combo combo3;
 
+    // Ticket Controller
+    protected TicketController ticketController;
+
 
     public void inicializarPeliculas() {
 
@@ -202,6 +206,8 @@ public class TestResources {
     }
 
     public void inicializarFunciones() {
+        // Esta funcion la usamos para tests especificos, pero sino nosotros nunca creamos
+        // funciones en el sistema, lo hace el algoritmo solo.
         this.asignadorDeHorarios = new AsignadorDeHorarios(new ArrayList<>());
         this.funcionA_A1_blackWidow = asignadorDeHorarios.crearFuncion(blackWidow, new DateTime(), salaA1);
     }
@@ -261,6 +267,10 @@ public class TestResources {
         this.combo1 = new Combo(Stream.of(pochocloGrande, gaseosaGrande).collect(Collectors.toList()));
         this.combo2 = new Combo(Stream.of(pochocloChico, nachosMedianos, gaseosaGrande).collect(Collectors.toList()));
         this.combo3 = new Combo(Stream.of(pochocloGrande, gaseosaGrande, gaseosaGrande).collect(Collectors.toList()));
+    }
+
+    public void inicializarTicketController() {
+        this.ticketController = new TicketController();
     }
 
 }

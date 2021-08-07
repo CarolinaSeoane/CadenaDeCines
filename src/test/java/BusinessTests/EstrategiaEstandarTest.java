@@ -2,6 +2,7 @@ package BusinessTests;
 
 import Business.Pelicula;
 import Business.PlanificationStrategy.EstrategiaEstandar;
+import Resources.TestResources;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
