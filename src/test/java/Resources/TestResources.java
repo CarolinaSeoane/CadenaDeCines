@@ -1,6 +1,9 @@
 package Resources;
 
 import Business.*;
+import Business.Composite.Combo;
+import Business.Composite.Producto;
+import Business.Composite.ProductoSimple;
 import Business.Enums.Tamanio;
 import Business.PlanificationStrategy.Planificador;
 import Controllers.TicketController;

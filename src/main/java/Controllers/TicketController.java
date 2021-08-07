@@ -6,6 +6,7 @@ package Controllers;
  */
 
 import Business.*;
+import Business.Composite.Producto;
 import Security.Usuario;
 
 import java.util.List;

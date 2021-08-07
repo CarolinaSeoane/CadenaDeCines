@@ -1,4 +1,4 @@
-package Business;
+package Business.Composite;
 
 public interface Producto {
 

@@ -1,5 +1,6 @@
 package Business;
 
+import Business.Composite.Producto;
 import Security.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Data;
