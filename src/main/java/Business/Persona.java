@@ -21,10 +21,20 @@ public class Persona implements Suscriptor {
     private String email;
     private List<Reserva> reservas;
     private List<Genero> generosPreferidos;
+    private List<Cine> suscripciones;
 
+    public void suscribirseA(Cine unCine){
+        suscripciones.add(unCine);
+        unCine.suscribir(this.email);
+    }
+
+    public void desuscribirseDe(Cine unCine){
+        suscripciones.remove(unCine);
+        unCine.desuscribir(this.email);
+    }
 
     @Override
-    public void update() {
-
+    public String update() {
+        return this.email;
     }
 }

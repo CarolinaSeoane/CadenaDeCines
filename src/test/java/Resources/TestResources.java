@@ -5,7 +5,9 @@ import Business.Composite.Combo;
 import Business.Composite.Producto;
 import Business.Composite.ProductoSimple;
 import Business.Enums.Tamanio;
+import Business.Enums.TipoDoc;
 import Business.PlanificationStrategy.Planificador;
+import Business.SusbcribersObserver.Notificador;
 import Controllers.TicketController;
 import org.joda.time.DateTime;
 
@@ -119,6 +121,9 @@ public class TestResources {
     // Ticket Controller
     protected TicketController ticketController;
 
+    // Personas
+    protected Persona caro;
+    protected Persona facu;
 
     public void inicializarPeliculas() {
 
@@ -222,9 +227,9 @@ public class TestResources {
     }
 
     public void inicializarCines() {
-        this.cineA = new Cine("CineA", "CineAPiso1", this.inicializarFuncionesDeA(), asignadorDeHorariosA);
-        this.cineB = new Cine("CineB", "CineBPiso1", this.inicializarFuncionesDeB(), asignadorDeHorariosB);
-        this.cineC = new Cine("CineC", "CineCPiso1", this.inicializarFuncionesDeC(), asignadorDeHorariosC);
+        this.cineA = new Cine("CineA", "CineAPiso1", this.inicializarFuncionesDeA(), asignadorDeHorariosA, new Notificador(new ArrayList<>()));
+        this.cineB = new Cine("CineB", "CineBPiso1", this.inicializarFuncionesDeB(), asignadorDeHorariosB, new Notificador(new ArrayList<>()));
+        this.cineC = new Cine("CineC", "CineCPiso1", this.inicializarFuncionesDeC(), asignadorDeHorariosC, new Notificador(new ArrayList<>()));
     }
 
     public Map<Sala, List<Funcion>> inicializarFuncionesDeA() { // A tiene 3 salas: A1, A2, A3
@@ -246,6 +251,15 @@ public class TestResources {
         Map<Sala, List<Funcion>> funciones = new HashMap<>();
         funciones.put(salaC1, new ArrayList<>());
         return funciones;
+    }
+
+    public void inicializarPersonas(){
+        caro = new Persona("Carolina", "Seoane", new Date(2001, Calendar.FEBRUARY, 07), TipoDoc.DNI,
+                        43050214, "carolina.b.seoane@gmail.com", new ArrayList<>(),
+                Stream.of(ACCION, CIENCIAFICCION, SUSPENSO).collect(Collectors.toList()), new ArrayList<>());
+        facu = new Persona("Facundo", "Verge", new Date(2000, Calendar.OCTOBER, 05), TipoDoc.DNI,
+                42952776, "facu.verge@gmail.com", new ArrayList<>(),
+                Stream.of(CIENCIAFICCION, COMEDIA, THRILLER).collect(Collectors.toList()), new ArrayList<>());
     }
 
     public void inicializarCadena() {

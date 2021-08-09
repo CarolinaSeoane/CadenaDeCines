@@ -1,6 +1,5 @@
 package Business;
 
-import Business.SusbcribersObserver.Notificador;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.joda.time.DateTime;
@@ -11,7 +10,6 @@ import java.util.*;
 @AllArgsConstructor
 public class AsignadorDeHorarios {
 
-    //private Notificador notificador;
     private List<Pelicula> peliculas;
 
     public void asignarHorarios(Map<Sala, List<Funcion>> funciones) {
@@ -35,7 +33,6 @@ public class AsignadorDeHorarios {
            contadorSala = this.actualizarContador(contadorSala, salas.size());
            contadorFecha = this.actualizarContador(contadorFecha, contadores.size());
        }
-       //notificador.notificar();
     }
 
     public Boolean todosLosContadoresEstanCompletos(List<DateTime> contadores, DateTime fechaFinal){

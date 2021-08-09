@@ -1,10 +1,14 @@
 package Business;
 
+import Business.SusbcribersObserver.Notificador;
+import Business.SusbcribersObserver.Suscriptor;
 import Security.Administrador;
 import Security.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.SneakyThrows;
 
+import javax.mail.internet.AddressException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,19 +22,27 @@ public class Cine {
     // private List<Administrador> administradores;
     private Map<Sala, List<Funcion>> funciones;
     private AsignadorDeHorarios asignadorDeHorarios;
-
+    private Notificador notificador;
 
     public void recibirPeliculas(List<Pelicula> peliculas) {
         asignadorDeHorarios.recibirPeliculas(peliculas);
     }
 
+    @SneakyThrows
     public void realizarPlanificacionSemanal() {
         asignadorDeHorarios.asignarHorarios(funciones);
+        notificador.notificar();
     }
 
+    public void suscribir(String unEmail){
+        notificador.agregarSuscriptor(unEmail);
+    }
+
+    public void desuscribir(String unEmail){
+        notificador.eliminarSuscriptor(unEmail);
+    }
 
     // Metodos para Tests
-
     public int cantidadDeFunciones() {
         int total = 0;
         for (Map.Entry<Sala, List<Funcion>> entrada : this.funciones.entrySet()) {
