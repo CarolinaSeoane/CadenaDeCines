@@ -1,12 +1,9 @@
 package Business.PlanificationStrategy;
 
-import Business.Cadena;
-import Business.Cine;
 import Business.Enums.Genero;
 import Business.Pelicula;
 import lombok.Data;
 import static Business.Enums.Genero.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

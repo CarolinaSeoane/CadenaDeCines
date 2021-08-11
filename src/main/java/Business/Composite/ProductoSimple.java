@@ -1,6 +1,5 @@
 package Business.Composite;
 
-import Business.Composite.Producto;
 import Business.Enums.Tamanio;
 import lombok.AllArgsConstructor;
 import lombok.Data;

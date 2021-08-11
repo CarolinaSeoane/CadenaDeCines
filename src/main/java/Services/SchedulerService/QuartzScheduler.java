@@ -37,7 +37,6 @@ public class QuartzScheduler {
         //schedule trigger
         scheduleJob(triggerNew);
 
-
     }
 
     //create scheduleJob() method to schedule a job
@@ -53,7 +52,6 @@ public class QuartzScheduler {
 
     //create createTrigger() method that returns a trigger based on the time interval
     private Trigger createCronTrigger() {
-
 
         //create a trigger to be returned from the method
         Trigger triggerNew = TriggerBuilder.newTrigger().withIdentity(NAME_OF_TRIGGER, NAME_OF_GROUP)

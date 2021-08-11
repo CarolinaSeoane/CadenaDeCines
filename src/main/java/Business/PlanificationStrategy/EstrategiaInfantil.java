@@ -3,11 +3,9 @@ package Business.PlanificationStrategy;
 import Business.Enums.Genero;
 import Business.Pelicula;
 import lombok.Data;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import static Business.Enums.Genero.*;
 
 /*

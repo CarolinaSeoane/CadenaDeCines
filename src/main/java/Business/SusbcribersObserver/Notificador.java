@@ -4,7 +4,6 @@ import Services.EmailService.EmailCreator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.SneakyThrows;
-
 import javax.mail.internet.InternetAddress;
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package Business.PlanificationStrategy;
 
 import Business.Pelicula;
-
 import java.util.List;
 
 public interface PlanificationStrategy {

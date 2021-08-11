@@ -5,7 +5,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
@@ -18,9 +21,14 @@ No debería tener contacto con ninguna otra salvo la que la invoca
 
 public class EmailSender {
 
-    public static void send(String subject, String htmlBody, Map<String, String> mapInlineImages, InternetAddress[] toAddresses) throws MessagingException {
-        final String userName = "dds.cinema.project@gmail.com";
-        final String password = "aguebot1041";
+    public static void send(String subject, String htmlBody, Map<String, String> mapInlineImages, InternetAddress[] toAddresses) throws MessagingException, IOException {
+
+        Properties prop = new Properties();
+        InputStream input = new FileInputStream("src/main/java/Services/EmailService/Mail.prop");
+        prop.load(input);
+
+        String username = prop.getProperty("username");
+        String password = prop.getProperty("password");
 
         // Set de propiedades SMTP. Venían parametrizadas pero no es necesario
         Properties properties = new Properties();
@@ -34,7 +42,7 @@ public class EmailSender {
         // Autenticamos nuestro mail
         Authenticator auth = new Authenticator() {
             public PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(userName, password);
+                return new PasswordAuthentication(username, password);
             }
         };
         Session session = Session.getInstance(properties, auth);
@@ -43,7 +51,7 @@ public class EmailSender {
         Message msg = new MimeMessage(session);
 
         // La idea es que a todos se les mande el mismo mensaje en principio
-        msg.setFrom(new InternetAddress(userName));
+        msg.setFrom(new InternetAddress(username));
         msg.setRecipients(Message.RecipientType.BCC, toAddresses);
         msg.setSubject(subject);
         msg.setSentDate(new Date());
@@ -71,7 +79,6 @@ public class EmailSender {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-
                 multipart.addBodyPart(imagePart);
             }
         }
@@ -81,7 +88,6 @@ public class EmailSender {
         tiene datos de conexion, etc.
         */
         msg.setContent(multipart);
-
         Transport.send(msg);
     }
 }
