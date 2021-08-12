@@ -195,7 +195,7 @@ public class TestResources {
         // Esta funcion la usamos para tests especificos, pero sino nosotros nunca creamos
         // funciones en el sistema, lo hace el algoritmo solo.
         this.asignadorDeHorarios = new AsignadorDeHorarios(new ArrayList<>());
-        this.funcionA_A1_blackWidow = asignadorDeHorarios.crearFuncion(blackWidow, new DateTime(), salaA1);
+        this.funcionA_A1_blackWidow = asignadorDeHorarios.crearFuncion(blackWidow, new DateTime(), salaA1); //Sala A1 es del CineA
     }
 
     public void inicializarAsignadoresDeHorarios() {

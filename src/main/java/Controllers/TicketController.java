@@ -7,37 +7,36 @@ package Controllers;
 
 import Business.*;
 import Business.Composite.Producto;
-import Security.Usuario;
-
+import Security.Cliente;
 import java.util.List;
 import java.util.UUID;
 
 public class TicketController {
 
-    public void ejecutar(Usuario usr, Funcion funcion, List<Asiento> asientos, List<Producto> productos) {
+    public void ejecutar(Cliente cliente, Funcion funcion, List<Asiento> asientos, List<Producto> productos) {
         int precioAsientos = funcion.comprarAsientos(asientos);
         int precioProductos = this.calcularPrecioProductos(productos);
-
         int porcentajeGanancia = Cadena.getInstance().getPorcentajeGanancia();
-        String id = this.generarIdTicket();
+        String cod_reserva = this.generarCodigoReserva();
+        int descuento = cliente.getDescuento();
 
-        int precio = this.calcularPrecioFinal(precioAsientos + precioProductos, porcentajeGanancia);
+        int precioFinal = this.calcularPrecioFinal(precioAsientos + precioProductos, porcentajeGanancia - descuento);
 
-        Reserva reserva = new Reserva(usr, funcion, asientos, productos, precio, id);
+        Reserva reserva = new Reserva(cliente, funcion, asientos, productos, precioFinal, cod_reserva);
 
+        cliente.guardarReserva(reserva);
     }
-
 
     public int calcularPrecioProductos(List<Producto> productos) {
         return productos.stream().mapToInt(producto -> producto.getPrecio()).sum();
     }
 
-    public String generarIdTicket() {
+    public String generarCodigoReserva() {
         return UUID.randomUUID().toString();
     }
 
-    public int calcularPrecioFinal(int costo, int ganancia) {
-        return costo + ((costo * ganancia) / 100);
+    public int calcularPrecioFinal(int costo, int porcentajeGanancia) {
+        return costo + ((costo * porcentajeGanancia) / 100);
     }
 
 }

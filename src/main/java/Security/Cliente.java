@@ -11,8 +11,16 @@ public class Cliente extends Usuario {
     private List<Reserva> reservas;
     private Plan plan;
 
-    public void comprarEntrada() {
+    public int getDescuento() {
+        return plan.getDescuento();
+    }
 
+    public List<Reserva> getReservas() {
+        return this.reservas;
+    }
+
+    public void guardarReserva(Reserva reserva) {
+        reservas.add(reserva);
     }
 
     public void publicarComentario(String descripcion, int calificacion, Pelicula pelicula) {
