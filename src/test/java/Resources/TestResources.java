@@ -9,6 +9,9 @@ import Business.Enums.TipoDoc;
 import Business.PlanificationStrategy.Planificador;
 import Business.SusbcribersObserver.Notificador;
 import Controllers.TicketController;
+import Security.Cliente;
+import Security.Plan.Basico;
+import Security.Plan.Premium;
 import org.joda.time.DateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -88,6 +91,10 @@ public class TestResources {
     protected Comentario com_2;
     protected Comentario com_3;
     protected Comentario com_4;
+
+    // Usuarios Cliente
+    protected Cliente userCaro;
+    protected Cliente userFacu;
 
     public void inicializarPeliculas() {
 
@@ -285,7 +292,24 @@ public class TestResources {
                 "No era lo que esperaba pero valio la pena",
                 4
         );
+    }
 
+    public void inicializarUsuarios() {
+        this.userCaro = new Cliente(
+                "carooseoane",
+                "nnidfda",
+                caro,
+                new ArrayList<>(),
+                new Basico()
+        );
+
+        this.userFacu = new Cliente(
+                "facuverge",
+                "fddsafs",
+                facu,
+                new ArrayList<>(),
+                new Premium()
+        );
     }
 
 }
