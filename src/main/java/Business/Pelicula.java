@@ -15,12 +15,16 @@ public class Pelicula {
     private int duracion;
     private List<Genero> generos;
     private Boolean ATP;
-    //private List<Comentario> comentarios;
+    private List<Comentario> comentarios;
 
     public Boolean esDeGenero(Genero unGenero) {
         return this.generos.contains(unGenero);
     }
 
     public Boolean duraMenosDe(int unosMinutos){ return this.duracion < unosMinutos; }
+
+    public void addComentario(Comentario comentario) {
+        this.comentarios.add(comentario);
+    }
 
 }

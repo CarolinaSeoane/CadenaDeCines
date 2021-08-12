@@ -10,52 +10,10 @@ import Business.PlanificationStrategy.Planificador;
 import Business.SusbcribersObserver.Notificador;
 import Controllers.TicketController;
 import org.joda.time.DateTime;
-
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static Business.Enums.Genero.*;
-
-/*
-* Para los tests simulamos una cadena de cines con las siguientes caracteristicas:
-*
-*   1 Cadena: - cadena
-*
-*   1 planificador con estrategia estandar.
-*
-*   7 Peliculas disponibles:    - Black Widow
-*                               - Volver Al Futuro
-*                               - Ratatouille
-*                               - Joker
-*                               - Snatch
-*                               - Cape Fear
-*                               - Catch Me If You Can
-*
-*  3 cines: - CineA
-*           - CineB
-*           - CineC
-*
-*  Informacion de cada cine:    - CineA:
-*                                   [3 salas] : SalaA1 (2 asientos: A1_A1 y A1_A2)
-*                                               SalaA2 (1 asiento:  A2_A1)
-*                                               SalaA3 (2 asiento:  A3_A1 y A3_A2)
-*
-*                                   [Asignador] : asignadorDeHorariosA
-*
-*
-*                               - CineB:
-*                                   [2 salas] : SalaB1 (1 asiento: B1_A1)
-*                                               SalaB2 (2 asientos: B2_A1 Y B2_A2)
-*
-*                                    [Asignador] : asignadorDeHorariosB
-*
-*                               - CineC:
-*                                   [1 sala] : SalaC1 (2 asientos: C1_A1 y C1_A2)
-*
-*                                   [Asignador] : asignadorDeHorariosC
-*
-*
-* */
 
 public class TestResources {
 
@@ -125,6 +83,12 @@ public class TestResources {
     protected Persona caro;
     protected Persona facu;
 
+    // Comentarios
+    protected Comentario com_1;
+    protected Comentario com_2;
+    protected Comentario com_3;
+    protected Comentario com_4;
+
     public void inicializarPeliculas() {
 
         // Black Widow
@@ -134,7 +98,8 @@ public class TestResources {
                 "Cate Shortland",
                 134,
                 Stream.of(ACCION, THRILLER, CIENCIAFICCION, AVENTURAS, FANTASIA).collect(Collectors.toList()),
-                true);
+                true,
+                Stream.of(com_1).collect(Collectors.toList()));
 
         // Volver Al Futuro
         this.volverAlFuturo = new Pelicula(
@@ -143,7 +108,8 @@ public class TestResources {
                 "Robert Zemeckis",
                 116,
                 Stream.of(CIENCIAFICCION, FANTASIA, COMEDIA, AVENTURAS, INFANTIL, ROMANCE).collect(Collectors.toList()),
-                true);
+                true,
+                Stream.of(com_2).collect(Collectors.toList()));
 
         // Ratatouille
         this.ratatouille = new Pelicula(
@@ -152,7 +118,8 @@ public class TestResources {
                 "Brad Bird",
                 118,
                 Stream.of(INFANTIL, FANTASIA, AVENTURAS, COMEDIA).collect(Collectors.toList()),
-                true);
+                true,
+                Stream.of(com_3).collect(Collectors.toList()));
 
         // Joker
         this.joker = new Pelicula(
@@ -161,7 +128,8 @@ public class TestResources {
                 "Todd Phillips",
                 122,
                 Stream.of(SUSPENSO, DRAMA, THRILLER).collect(Collectors.toList()),
-                false);
+                false,
+                Stream.of(com_4).collect(Collectors.toList()));
 
         // Snatch
         this.snatch = new Pelicula(
@@ -170,7 +138,8 @@ public class TestResources {
                 "Guy Ritchie",
                 104,
                 Stream.of(ACCION, COMEDIA, THRILLER).collect(Collectors.toList()),
-                false);
+                false,
+                Stream.of(com_1).collect(Collectors.toList()));
 
         // Cape Fear
         this.capeFear = new Pelicula(
@@ -179,7 +148,8 @@ public class TestResources {
                 "Martin Scorsese",
                 128,
                 Stream.of(SUSPENSO, DRAMA).collect(Collectors.toList()),
-                false);
+                false,
+                Stream.of(com_2).collect(Collectors.toList()));
 
         // Catch Me If You Can
         this.catchMeIfYouCan = new Pelicula(
@@ -188,7 +158,8 @@ public class TestResources {
                 "Steven Spielberg",
                 141,
                 Stream.of(DRAMA, COMEDIA).collect(Collectors.toList()),
-                true);
+                true,
+                Stream.of(com_3).collect(Collectors.toList()));
     }
 
     public void inicializarAsientos() {
@@ -288,6 +259,33 @@ public class TestResources {
 
     public void inicializarTicketController() {
         this.ticketController = new TicketController();
+    }
+
+    public void inicializarComentarios() {
+        this.com_1 = new Comentario(
+                "dario",
+                "Muy buena",
+                4
+        );
+
+        this.com_2 = new Comentario(
+                "Camiii",
+                "Recomendable",
+                5
+        );
+
+        this.com_3 = new Comentario(
+                "mica",
+                "No me gusto",
+                2
+        );
+
+        this.com_4 = new Comentario(
+                "pancho",
+                "No era lo que esperaba pero valio la pena",
+                4
+        );
+
     }
 
 }

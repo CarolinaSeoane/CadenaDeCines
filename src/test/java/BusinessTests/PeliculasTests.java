@@ -10,6 +10,7 @@ public class PeliculasTests extends TestResources {
 
     @Before
     public void inicializar() {
+        this.inicializarComentarios();
         this.inicializarPeliculas();
     }
 
@@ -31,6 +32,13 @@ public class PeliculasTests extends TestResources {
     @Test
     public void capeFearDura128Minutos() {
         Assert.assertEquals(128, capeFear.getDuracion());
+    }
+
+    @Test
+    public void agrego2ComentariosABlackWidowYTiene3() {
+        blackWidow.addComentario(com_3);
+        blackWidow.addComentario(com_4);
+        Assert.assertEquals(3, blackWidow.getComentarios().size());
     }
 
 }
