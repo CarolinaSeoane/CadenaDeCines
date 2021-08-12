@@ -1,7 +1,4 @@
 package Security;
 
-import lombok.Data;
-
-@Data
-public class Administrador implements Rol {
+public class Administrador extends Usuario {
 }

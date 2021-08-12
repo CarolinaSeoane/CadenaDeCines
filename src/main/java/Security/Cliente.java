@@ -1,7 +1,13 @@
 package Security;
 
-import lombok.Data;
+import Business.Reserva;
+import Security.Plan.Plan;
 
-@Data
-public class Cliente implements Rol {
+import java.util.List;
+
+public class Cliente extends Usuario {
+
+    private List<Reserva> reservas;
+    private Plan plan;
+
 }
