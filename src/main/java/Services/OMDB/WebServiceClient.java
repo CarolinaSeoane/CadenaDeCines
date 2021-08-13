@@ -3,8 +3,10 @@ package Services.OMDB;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 public class WebServiceClient {
 
@@ -37,13 +39,14 @@ public class WebServiceClient {
         return response.toString();
     }
 
-    public static String searchByTitle(String title) {
+    public static String searchByTitle(String title) throws UnsupportedEncodingException {
+        title = URLEncoder.encode(title, "UTF-8"); // Para titulo con espacios
         String requestURL = SEARCH_URL.replaceAll("TITLE", title);
         return SendRequest(requestURL);
     }
 
-    public static void main (String[] args) {
-        String jsonResponse = WebServiceClient.searchByTitle("ratatouille");
+    public static void main (String[] args) throws UnsupportedEncodingException {
+        String jsonResponse = WebServiceClient.searchByTitle("black widow");
         System.out.println(jsonResponse);
     }
 
