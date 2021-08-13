@@ -2,19 +2,41 @@ package Services.OMDB;
 
 import Services.OMDB.Response.MovieData;
 import com.google.gson.Gson;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Properties;
 
 public class WebServiceClient {
 
-    public static final String SEARCH_URL = "http://www.omdbapi.com/?t=TITLE&apikey=f877a80d";
+    public MovieData ejecutar(String tituloPelicula) throws IOException {
+        String jsonResponse = this.buscarPorTitulo(tituloPelicula);
+        MovieData movieResponse = new Gson().fromJson(jsonResponse, MovieData.class);
 
-    public static String SendRequest(String requestURL) {
+        return movieResponse;
+    }
+
+    public String buscarPorTitulo(String tituloPelicula) throws IOException {
+        tituloPelicula = URLEncoder.encode(tituloPelicula, "UTF-8"); // Para titulo con espacios
+
+        String URL = this.getAPI_URL(tituloPelicula);
+
+        return SendRequest(URL);
+    }
+
+    private String getAPI_URL(String tituloPelicula) throws IOException {
+        Properties prop = new Properties();
+        InputStream input = new FileInputStream("src/main/java/Services/OMDB/OMDB.prop");
+        prop.load(input);
+
+        String SEARCH_URL = prop.getProperty("SEARCH_URL");
+        String API_KEY = prop.getProperty("API_KEY");
+
+        return SEARCH_URL.replaceAll("TITLE", tituloPelicula).replaceAll("API_KEY", API_KEY);
+    }
+
+    public String SendRequest(String requestURL) {
         StringBuffer response = new StringBuffer();
 
         try {
@@ -39,22 +61,6 @@ public class WebServiceClient {
             e.printStackTrace();
         }
         return response.toString();
-    }
-
-    public static String searchByTitle(String title) throws UnsupportedEncodingException {
-        title = URLEncoder.encode(title, "UTF-8"); // Para titulo con espacios
-        String requestURL = SEARCH_URL.replaceAll("TITLE", title);
-        return SendRequest(requestURL);
-    }
-
-    public static void main (String[] args) throws UnsupportedEncodingException {
-        String jsonResponse = WebServiceClient.searchByTitle("black widow");
-
-        MovieData movieResponse = new Gson().fromJson(jsonResponse, MovieData.class);
-
-        //System.out.println(jsonResponse);
-        String actores = movieResponse.getActors();
-        System.out.print(actores);
     }
 
 }
