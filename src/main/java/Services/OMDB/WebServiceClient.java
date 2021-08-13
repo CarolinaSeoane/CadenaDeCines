@@ -1,5 +1,7 @@
 package Services.OMDB;
 
+import Services.OMDB.Response.MovieData;
+import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -47,7 +49,12 @@ public class WebServiceClient {
 
     public static void main (String[] args) throws UnsupportedEncodingException {
         String jsonResponse = WebServiceClient.searchByTitle("black widow");
-        System.out.println(jsonResponse);
+
+        MovieData movieResponse = new Gson().fromJson(jsonResponse, MovieData.class);
+
+        //System.out.println(jsonResponse);
+        String actores = movieResponse.getActors();
+        System.out.print(actores);
     }
 
 }
