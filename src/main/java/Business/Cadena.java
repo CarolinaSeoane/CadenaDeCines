@@ -37,4 +37,12 @@ public class Cadena {
 
     /*  *****   *****   Fin Singleton   *****   *****   */
 
+    public void agregarPelicula(Pelicula unaPelicula){
+        peliculas.add(unaPelicula);
+    }
+
+    public Pelicula getPeli(String unTitulo) {
+        return peliculas.stream().filter(unaPeli -> unTitulo.equals(unaPeli.getTitulo())).findAny().orElse(null);
+    }
+
 }

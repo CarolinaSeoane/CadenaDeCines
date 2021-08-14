@@ -8,11 +8,14 @@ import Business.Enums.Tamanio;
 import Business.Enums.TipoDoc;
 import Business.PlanificationStrategy.Planificador;
 import Business.SusbcribersObserver.Notificador;
+import Controllers.PeliculasController;
 import Controllers.TicketController;
 import Security.Cliente;
 import Security.Plan.Basico;
 import Security.Plan.Premium;
 import org.joda.time.DateTime;
+
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,6 +29,7 @@ public class TestResources {
     // Planificador
     protected Planificador planificador;
 
+
     // Peliculas
     protected Pelicula blackWidow;
     protected Pelicula volverAlFuturo;
@@ -34,6 +38,7 @@ public class TestResources {
     protected Pelicula snatch;
     protected Pelicula capeFear;
     protected Pelicula catchMeIfYouCan;
+
 
     // Asientos
     protected Asiento A1_A1;
@@ -98,75 +103,37 @@ public class TestResources {
 
     public void inicializarPeliculas() {
 
-        // Black Widow
-        this. blackWidow = new Pelicula(
-                "Black Widow",
-                "Scarlett Johansson, Rachel Weisz, David Harbour, Robert Downey Jr.",
-                "Cate Shortland",
-                134,
-                Stream.of(ACCION, THRILLER, CIENCIAFICCION, AVENTURAS, FANTASIA).collect(Collectors.toList()),
-                true,
-                Stream.of(com_1).collect(Collectors.toList()));
+        try {
+            PeliculasController controlador = new PeliculasController();
 
-        // Volver Al Futuro
-        this.volverAlFuturo = new Pelicula(
-                "Volver Al Futuro",
-                "Michael J. Fox, Christopher Lloyd, Lea Thompson",
-                "Robert Zemeckis",
-                116,
-                Stream.of(CIENCIAFICCION, FANTASIA, COMEDIA, AVENTURAS, INFANTIL, ROMANCE).collect(Collectors.toList()),
-                true,
-                Stream.of(com_2).collect(Collectors.toList()));
+            controlador.ejecutar("Black Widow");
+            controlador.ejecutar("Volver Al Futuro");
+            controlador.ejecutar("Ratatouille");
+            controlador.ejecutar("Joker");
+            controlador.ejecutar("Snatch");
+            controlador.ejecutar("Cape Fear");
+            controlador.ejecutar("Catch Me If You Can");
 
-        // Ratatouille
-        this.ratatouille = new Pelicula(
-                "Ratatouille",
-                "Lou Romano, Janeane Garofalo, Will Arnett",
-                "Brad Bird",
-                118,
-                Stream.of(INFANTIL, FANTASIA, AVENTURAS, COMEDIA).collect(Collectors.toList()),
-                true,
-                Stream.of(com_3).collect(Collectors.toList()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        // Joker
-        this.joker = new Pelicula(
-                "Joker",
-                "Joaquin Phoenix, Robert De Niro, Zazie Beetz, Frances Conroy",
-                "Todd Phillips",
-                122,
-                Stream.of(SUSPENSO, DRAMA, THRILLER).collect(Collectors.toList()),
-                false,
-                Stream.of(com_4).collect(Collectors.toList()));
+        this.inicializarPeliculasTest();
+    }
 
-        // Snatch
-        this.snatch = new Pelicula(
-                "Snatch",
-                "Brad Pitt, Jason Statham, Benicio del Toro, Vinnie Jones",
-                "Guy Ritchie",
-                104,
-                Stream.of(ACCION, COMEDIA, THRILLER).collect(Collectors.toList()),
-                false,
-                Stream.of(com_1).collect(Collectors.toList()));
+    public void inicializarPeliculasTest() {
 
-        // Cape Fear
-        this.capeFear = new Pelicula(
-                "Cape Fear",
-                "Robert De Niro, Gregory Peck, Robert Mitchum, Juliette Lewis",
-                "Martin Scorsese",
-                128,
-                Stream.of(SUSPENSO, DRAMA).collect(Collectors.toList()),
-                false,
-                Stream.of(com_2).collect(Collectors.toList()));
+        Cadena cadena = Cadena.getInstance();
 
-        // Catch Me If You Can
-        this.catchMeIfYouCan = new Pelicula(
-                "Catch Me If You Can",
-                "Leonardo DiCaprio, Tom Hanks, Amy Adams, Christopher Walken",
-                "Steven Spielberg",
-                141,
-                Stream.of(DRAMA, COMEDIA).collect(Collectors.toList()),
-                true,
-                Stream.of(com_3).collect(Collectors.toList()));
+        blackWidow = cadena.getPeli("Black Widow");
+        volverAlFuturo = cadena.getPeli("Volver Al Futuro");
+        ratatouille = cadena.getPeli("Ratatouille");
+        joker = cadena.getPeli("Joker");
+        snatch = cadena.getPeli("Snatch");
+        capeFear = cadena.getPeli("Cape Fear");
+        catchMeIfYouCan = cadena.getPeli("Catch Me If You Can");
+
+
     }
 
     public void inicializarAsientos() {
@@ -243,7 +210,7 @@ public class TestResources {
     public void inicializarCadena() {
         this.cadena = Cadena.getInstance();
         cadena.setCines(Stream.of(cineA, cineB, cineC).collect(Collectors.toList()));
-        cadena.setPeliculas(Stream.of(blackWidow, volverAlFuturo, ratatouille, joker, snatch, capeFear, catchMeIfYouCan).collect(Collectors.toList()));
+        //cadena.setPeliculas(Stream.of(blackWidow, volverAlFuturo, ratatouille, joker, snatch, capeFear, catchMeIfYouCan).collect(Collectors.toList()));
         cadena.setProductos(Stream.of(pochocloChico, pochocloGrande, nachosMedianos, gaseosaGrande).collect(Collectors.toList()));
         cadena.setPorcentajeGanancia(100);
         cadena.setDescuentoPorCombo(15);
@@ -311,5 +278,6 @@ public class TestResources {
                 new Premium()
         );
     }
+
 
 }

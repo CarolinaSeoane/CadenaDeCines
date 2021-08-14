@@ -11,4 +11,5 @@ public interface PlanificationStrategy {
     List<Pelicula> seleccionarPrioridadMEDIA(List<Pelicula> peliculas);
 
     List<Pelicula> seleccionarPrioridadBAJA(List<Pelicula> peliculas);
+
 }

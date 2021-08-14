@@ -34,7 +34,7 @@ public class EstrategiaEstandarTest extends TestResources {
     public void inicializar() {
         this.inicializarPeliculas();
         this.estrategiaEstandar = new EstrategiaEstandar();
-        this.peliculas = Stream.of(blackWidow, volverAlFuturo, ratatouille, joker, snatch, capeFear, catchMeIfYouCan).collect(Collectors.toList());
+        //this.peliculas = Stream.of(blackWidow, volverAlFuturo, ratatouille, joker, snatch, capeFear, catchMeIfYouCan).collect(Collectors.toList());
     }
 
     @Test

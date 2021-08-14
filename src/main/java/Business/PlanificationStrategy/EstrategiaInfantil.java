@@ -13,52 +13,54 @@ import static Business.Enums.Genero.*;
 
 Parámetros a utilizar
 
---> ¿Es INFANTIL?                   20 puntos
+--> ¿Tiene Rating Alto?             20 puntos
+--> ¿Tiene Rating Medio?            15 puntos
+--> ¿Tiene Rating Bajo?             10 puntos
 --> ¿Es ATP?                        10 puntos
---> ¿Es un Genero Familiar?         10 puntos
 --> ¿Dura menos de 130 minutos?     5  puntos
 
-Géneros Familiares = ACCION, CIENCIAFICCION, COMEDIA, FANTASIA, AVENTURAS
 
  */
 
 @Data
 public class EstrategiaInfantil implements PlanificationStrategy {
 
-    List<Genero> generosFamiliares = Stream.of(ACCION, AVENTURAS, CIENCIAFICCION, COMEDIA, FANTASIA).collect(Collectors.toList());
+    //List<Genero> generosFamiliares = Stream.of(ACCION, AVENTURAS, CIENCIAFICCION, COMEDIA, FANTASIA).collect(Collectors.toList());
 
     int minutosParaQueSeaCortaDuracion = 130;
 
     // PUNTAJES
-    int puntajeInfantil      = 20;
-    int puntajeATP           = 20;
-    int puntajeFamiliar      = 10;
-    int puntajeCortaDuracion = 5;
+    int puntajeRatingAlto       = 20;
+    int puntajeRatingMedio      = 10;
+    int puntajeRatingBajo       = 5;
+    int puntajeATP              = 20;
+    int puntajeCortaDuracion    = 5;
 
-    // PUNTAJES DE CORTE
-    int cortePrioridadAlta  = 30;
-    int cortePrioridadMedia = 15;
+    // PUNTAJES PARA CATEGORIA RATING
+    double corteRatingAlto  = 7.8;
+    double corteRatingMedio = 5.3;
+
+    //PUNTAJES PARA PRIORIDAD
+    int cortePrioridadAlta  = 35;
+    int cortePrioridadMedia = 25;
 
 
     public int determinarPuntaje(Pelicula unaPelicula){
         int puntajeTotal = 0;
-        if(unaPelicula.esDeGenero(INFANTIL)) {
-            puntajeTotal += puntajeInfantil;
+        if(unaPelicula.tieneRatingMayorA(corteRatingAlto)) {
+            puntajeTotal += puntajeRatingAlto;
+        }else if(unaPelicula.tieneRatingMayorA(corteRatingMedio)) {
+            puntajeTotal += puntajeRatingMedio;
+        }else {
+            puntajeTotal += puntajeRatingBajo;
         }
         if(unaPelicula.getATP()) {
             puntajeTotal += puntajeATP;
-        }
-        if(this.esDeGeneroFamiliar(unaPelicula)) {
-            puntajeTotal += puntajeFamiliar;
         }
         if(unaPelicula.duraMenosDe(minutosParaQueSeaCortaDuracion)) {
             puntajeTotal += puntajeCortaDuracion;
         }
         return puntajeTotal;
-    }
-
-    public boolean esDeGeneroFamiliar(Pelicula unaPelicula){
-        return unaPelicula.getGeneros().stream().anyMatch(n -> generosFamiliares.contains(n));
     }
 
     @Override

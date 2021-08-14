@@ -11,10 +11,8 @@ import java.util.stream.Stream;
 /*
 ............................. Criterio Estandar .....................................
 
-El planificador se basa en dos parámetros   ---> ¿Pertenece a un género popular?
+El planificador se basa en dos parámetros   ---> ¿Tiene Rating alto?
                                             ---> ¿Es ATP?
-
-Géneros populares: ACCION, AVENTURAS, CIENCIAFICCION, FANTASIA, ROMANCE, TERROR, THRILLER
 
 Procedimiento: Le pide a la Cadena la lista de películas y, a medida que la recorre,
 decide para cada una qué prioridad le pertenece. No tomamos en cuenta la cantidad
@@ -25,7 +23,7 @@ Tabla de Decisión (Primera Version) tomando las dos preguntas que son parámetr
     -------------------------------------------------------------------------
     |                       |       1       |       2       |       3       |
     -------------------------------------------------------------------------
-    | ¿ES GENERO POPULAR?   |       SI      |       NO      |       NO      |
+    | ¿Tiene Rating alto?   |       SI      |       NO      |       NO      |
     -------------------------------------------------------------------------
     | ¿ES ATP?              |     SI/NO     |       SI      |       NO      |
     -------------------------------------------------------------------------
@@ -39,24 +37,21 @@ Tabla de Decisión (Primera Version) tomando las dos preguntas que son parámetr
 @Data
 public class EstrategiaEstandar implements PlanificationStrategy {
 
-    List<Genero> generosPopulares = Stream.of(ACCION, AVENTURAS, CIENCIAFICCION, FANTASIA, ROMANCE, TERROR, THRILLER).collect(Collectors.toList());
-
-    public boolean esDeGeneroPopular(Pelicula unaPelicula){
-        return unaPelicula.getGeneros().stream().anyMatch(n -> generosPopulares.contains(n));
-    }
+    //List<Genero> generosPopulares = Stream.of(ACCION, AVENTURAS, CIENCIAFICCION, FANTASIA, ROMANCE, TERROR, THRILLER).collect(Collectors.toList());
+    private double puntajeRatingAlto = 7.8;
 
     @Override
     public List<Pelicula> seleccionarPrioridadALTA(List<Pelicula> todasLasPelis) {
-        return todasLasPelis.stream().filter((pelicula)->(this.esDeGeneroPopular(pelicula))).collect(Collectors.toList());
+        return todasLasPelis.stream().filter((pelicula)->(pelicula.tieneRatingMayorA(puntajeRatingAlto))).collect(Collectors.toList());
     }
 
     @Override
     public List<Pelicula> seleccionarPrioridadMEDIA(List<Pelicula> todasLasPelis) {
-        return todasLasPelis.stream().filter((pelicula)->(!this.esDeGeneroPopular(pelicula) && pelicula.getATP())).collect(Collectors.toList());
+        return todasLasPelis.stream().filter((pelicula)->(!pelicula.tieneRatingMayorA(puntajeRatingAlto) && pelicula.getATP())).collect(Collectors.toList());
     }
 
     @Override
     public List<Pelicula> seleccionarPrioridadBAJA(List<Pelicula> todasLasPelis) {
-        return todasLasPelis.stream().filter((pelicula)->(!this.esDeGeneroPopular(pelicula) && !pelicula.getATP())).collect(Collectors.toList());
+        return todasLasPelis.stream().filter((pelicula)->(!pelicula.tieneRatingMayorA(puntajeRatingAlto) && !pelicula.getATP())).collect(Collectors.toList());
     }
 }

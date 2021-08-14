@@ -13,13 +13,11 @@ public class Pelicula {
     private String actores;
     private String director;
     private int duracion;
-    private List<Genero> generos;
+    private String generos;
     private Boolean ATP;
     private List<Comentario> comentarios;
+    private double imdbRating;
 
-    public Boolean esDeGenero(Genero unGenero) {
-        return this.generos.contains(unGenero);
-    }
 
     public Boolean duraMenosDe(int unosMinutos){ return this.duracion < unosMinutos; }
 
@@ -27,4 +25,7 @@ public class Pelicula {
         this.comentarios.add(comentario);
     }
 
+    public boolean tieneRatingMayorA(Double unRating) {
+        return this.getImdbRating() >= unRating;
+    };
 }

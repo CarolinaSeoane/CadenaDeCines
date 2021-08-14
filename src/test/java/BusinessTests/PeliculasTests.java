@@ -11,17 +11,18 @@ public class PeliculasTests extends TestResources {
     @Before
     public void inicializar() {
         this.inicializarComentarios();
+        this.inicializarCadena();
         this.inicializarPeliculas();
     }
 
     @Test
-    public void blackWidowEsDeAccion() {
-        Assert.assertEquals(true, blackWidow.esDeGenero(ACCION));
+    public void blackWidowTieneRatingAlto() {
+        Assert.assertEquals(true, blackWidow.tieneRatingMayorA(7.8));
     }
 
     @Test
-    public void ratatouilleEsInfantil() {
-        Assert.assertEquals(true, ratatouille.esDeGenero(INFANTIL));
+    public void ratatouilleTieneRatingAlto() {
+        Assert.assertEquals(true, ratatouille.tieneRatingMayorA(7.8));
     }
 
     @Test
