@@ -16,4 +16,8 @@ public abstract class Usuario {
         this.persona = persona;
     }
 
+    public String getNombreUsuario() {
+        return this.nombreUsuario;
+    }
+
 }

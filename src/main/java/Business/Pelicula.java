@@ -1,6 +1,5 @@
 package Business;
 
-import Business.Enums.Genero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.List;
@@ -25,7 +24,7 @@ public class Pelicula {
         this.comentarios.add(comentario);
     }
 
-    public boolean tieneRatingMayorA(Double unRating) {
+    public boolean tieneRatingMayorOIgualA(Double unRating) {
         return this.getImdbRating() >= unRating;
     };
 }

@@ -6,11 +6,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+
 public class SchedulerTest extends TestResources {
 
     @Before
-    public void inicializar(){
-        this.inicializarPeliculas();
+    public void inicializar() throws IOException {
         this.inicializarAsientos();
         this.inicializarSalas();
         this.inicializarAsignadoresDeHorarios();

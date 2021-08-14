@@ -14,12 +14,10 @@ import Security.Cliente;
 import Security.Plan.Basico;
 import Security.Plan.Premium;
 import org.joda.time.DateTime;
-
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import static Business.Enums.Genero.*;
 
 public class TestResources {
 
@@ -29,16 +27,14 @@ public class TestResources {
     // Planificador
     protected Planificador planificador;
 
-
     // Peliculas
     protected Pelicula blackWidow;
-    protected Pelicula volverAlFuturo;
+    protected Pelicula backToTheFuture;
     protected Pelicula ratatouille;
     protected Pelicula joker;
     protected Pelicula snatch;
     protected Pelicula capeFear;
     protected Pelicula catchMeIfYouCan;
-
 
     // Asientos
     protected Asiento A1_A1;
@@ -101,39 +97,32 @@ public class TestResources {
     protected Cliente userCaro;
     protected Cliente userFacu;
 
+    protected PeliculasController peliculasController;
+
     public void inicializarPeliculas() {
-
+        this.peliculasController = new PeliculasController();
         try {
-            PeliculasController controlador = new PeliculasController();
-
-            controlador.ejecutar("Black Widow");
-            controlador.ejecutar("Volver Al Futuro");
-            controlador.ejecutar("Ratatouille");
-            controlador.ejecutar("Joker");
-            controlador.ejecutar("Snatch");
-            controlador.ejecutar("Cape Fear");
-            controlador.ejecutar("Catch Me If You Can");
-
+            peliculasController.ejecutar("Black Widow");
+            peliculasController.ejecutar("Back To The Future");
+            peliculasController.ejecutar("Ratatouille");
+            peliculasController.ejecutar("Joker");
+            peliculasController.ejecutar("Snatch");
+            peliculasController.ejecutar("Cape Fear");
+            peliculasController.ejecutar("Catch Me If You Can");
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        this.inicializarPeliculasTest();
     }
 
-    public void inicializarPeliculasTest() {
-
+    public void getObjectPelicula() {
         Cadena cadena = Cadena.getInstance();
-
         blackWidow = cadena.getPeli("Black Widow");
-        volverAlFuturo = cadena.getPeli("Volver Al Futuro");
+        backToTheFuture = cadena.getPeli("Back to the Future");
         ratatouille = cadena.getPeli("Ratatouille");
         joker = cadena.getPeli("Joker");
         snatch = cadena.getPeli("Snatch");
         capeFear = cadena.getPeli("Cape Fear");
         catchMeIfYouCan = cadena.getPeli("Catch Me If You Can");
-
-
     }
 
     public void inicializarAsientos() {
@@ -199,18 +188,33 @@ public class TestResources {
     }
 
     public void inicializarPersonas(){
-        caro = new Persona("Carolina", "Seoane", new Date(2001, Calendar.FEBRUARY, 07), TipoDoc.DNI,
-                        43050214, "carolina.b.seoane@gmail.com", new ArrayList<>(),
-                Stream.of(ACCION, CIENCIAFICCION, SUSPENSO).collect(Collectors.toList()), new ArrayList<>());
-        facu = new Persona("Facundo", "Verge", new Date(2000, Calendar.OCTOBER, 05), TipoDoc.DNI,
-                42952776, "facu.verge@gmail.com", new ArrayList<>(),
-                Stream.of(CIENCIAFICCION, COMEDIA, THRILLER).collect(Collectors.toList()), new ArrayList<>());
+        caro = new Persona(
+                "Carolina",
+                "Seoane",
+                new Date(2001, Calendar.FEBRUARY, 07),
+                TipoDoc.DNI,
+                43050214,
+                "carolina.b.seoane@gmail.com",
+                new ArrayList<>(),
+                "Crime, Thriller",
+                new ArrayList<>());
+
+        facu = new Persona("Facundo",
+                "Verge",
+                new Date(2000, Calendar.OCTOBER, 05),
+                TipoDoc.DNI,
+                42952776,
+                "facu.verge@gmail.com",
+                new ArrayList<>(),
+                "Adventure, Comedy, Sci-Fi",
+                new ArrayList<>());
     }
 
     public void inicializarCadena() {
         this.cadena = Cadena.getInstance();
+        this.inicializarPeliculas();
+        this.getObjectPelicula();
         cadena.setCines(Stream.of(cineA, cineB, cineC).collect(Collectors.toList()));
-        //cadena.setPeliculas(Stream.of(blackWidow, volverAlFuturo, ratatouille, joker, snatch, capeFear, catchMeIfYouCan).collect(Collectors.toList()));
         cadena.setProductos(Stream.of(pochocloChico, pochocloGrande, nachosMedianos, gaseosaGrande).collect(Collectors.toList()));
         cadena.setPorcentajeGanancia(100);
         cadena.setDescuentoPorCombo(15);
@@ -278,6 +282,4 @@ public class TestResources {
                 new Premium()
         );
     }
-
-
 }

@@ -1,5 +1,6 @@
 package Services.OMDB.Response;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.ArrayList;
 
@@ -31,4 +32,30 @@ public class MovieData {
     private String Website;
     private String Response;
 
+    public MovieData() {
+        Title = new String();
+        Year = new String();
+        Rated = new String();
+        Released = new String();
+        Runtime = new String();
+        Genre = new String();
+        Director = new String();
+        Actors = new String();
+        Plot = new String();
+        Language = new String();
+        Country = new String();
+        Awards = new String();
+        Poster = new String();
+        Ratings = new ArrayList<>();
+        Metascore = new String();
+        this.imdbRating = new String();
+        this.imdbVotes = new String();
+        this.imdbID = new String();
+        Type = new String();
+        this.DVD = new String();
+        BoxOffice = new String();
+        Production = new String();
+        Website = new String();
+        Response = new String();
+    }
 }

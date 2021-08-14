@@ -1,30 +1,29 @@
 package BusinessTests;
 
+import Business.Cadena;
 import Business.Pelicula;
 import Business.PlanificationStrategy.EstrategiaInfantil;
 import Resources.TestResources;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
+import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /*
-              PELICULA      | ES       |  ¿ES   | ¿GENERO   | < 130   | PUNTAJE | PRIORIDAD
-                            | INFANTIL |   ATP? | FAMILIAR? | MINUTOS | TOTAL   |
-        ------------------------------------------------------------------------------------
-        Black Widow         |    0     |   20   |    10     |    0    |   30    |   MEDIA
-        Volver Al Futuro    |    20    |   20   |    10     |    5    |   55    |   ALTA
-        Ratatouille         |    20    |   20   |    10     |    5    |   55    |   ALTA
-        Joker               |    0     |   0    |    0      |    5    |   5     |   BAJA
-        Snatch              |    0     |   0    |    10     |    5    |   15    |   MEDIA
-        Cape Fear           |    0     |   0    |    0      |    5    |   5     |   BAJA
-        Catch Me If You Can |    0     |   20   |    10     |    0    |   30    |   MEDIA
+              PELICULA      | RATING | ¿ES   |  < 115  | PUNTAJE | PRIORIDAD
+                            |        |  ATP? | MINUTOS | TOTAL   |
+        ---------------------------------------------------------------------
+        Black Widow         |   10   |  0    |    0    |    10   |   BAJA
+        Back to the Future  |   20   |  10   |    0    |    30   |   ALTA
+        Ratatouille         |   15   |  10   |    5    |    30   |   ALTA
+        Joker               |   20   |  0    |    0    |    20   |   MEDIA
+        Snatch              |   15   |  0    |    5    |    20   |   MEDIA
+        Cape Fear           |   15   |  0    |    0    |    15   |   MEDIA
+        Catch Me If You Can |   15   |  0    |    0    |    15   |   MEDIA
 
-        ALTA:   (30;inf)
-        MEDIA:  [15;30]
+        ALTA:   (25;inf)
+        MEDIA:  [15;25]
         BAJA:   [0;15)
 */
 
@@ -34,10 +33,15 @@ public class EstrategiaInfantilTest extends TestResources {
     private List<Pelicula> peliculas;
 
     @Before
-    public void inicializar() {
-        this.inicializarPeliculas();
+    public void inicializar() throws IOException {
+        this.inicializarCadena();
         this.estrategiaInfantil = new EstrategiaInfantil();
-        this.peliculas = Stream.of(blackWidow, volverAlFuturo, ratatouille, joker, snatch, capeFear, catchMeIfYouCan).collect(Collectors.toList());
+        peliculas = Cadena.getInstance().getPeliculas();
+    }
+
+    @Test
+    public void hay7Peliculas() {
+        Assert.assertEquals(7, peliculas.size());
     }
 
     @Test
@@ -46,13 +50,13 @@ public class EstrategiaInfantilTest extends TestResources {
     }
 
     @Test
-    public void hay3Peliculas1DePrioridadMEDIA() {
-        Assert.assertEquals(3, estrategiaInfantil.seleccionarPrioridadMEDIA(peliculas).size());
+    public void hay4Peliculas1DePrioridadMEDIA() {
+        Assert.assertEquals(4, estrategiaInfantil.seleccionarPrioridadMEDIA(peliculas).size());
     }
 
     @Test
-    public void hay2PeliculasDePrioridadBAJA() {
-        Assert.assertEquals(2, estrategiaInfantil.seleccionarPrioridadBAJA(peliculas).size());
+    public void hay1PeliculaDePrioridadBAJA() {
+        Assert.assertEquals(1, estrategiaInfantil.seleccionarPrioridadBAJA(peliculas).size());
     }
 
     @Test
@@ -66,8 +70,8 @@ public class EstrategiaInfantilTest extends TestResources {
     }
 
     @Test
-    public void capeFearEsDePrioridadBaja() {
-        Assert.assertTrue(estrategiaInfantil.seleccionarPrioridadBAJA(peliculas).contains(capeFear));
+    public void blackWidowEsDePrioridadBaja() {
+        Assert.assertTrue(estrategiaInfantil.seleccionarPrioridadBAJA(peliculas).contains(blackWidow));
     }
 
 }

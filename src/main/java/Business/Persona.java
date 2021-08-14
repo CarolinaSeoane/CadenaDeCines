@@ -1,6 +1,5 @@
 package Business;
 
-import Business.Enums.Genero;
 import Business.Enums.TipoDoc;
 import Business.SusbcribersObserver.Suscriptor;
 import lombok.AllArgsConstructor;
@@ -19,7 +18,7 @@ public class Persona implements Suscriptor {
     private int nroDoc;
     private String email;
     private List<Reserva> reservas;
-    private List<Genero> generosPreferidos;
+    private String generosPreferidos;
     private List<Cine> suscripciones;
 
     public void suscribirseA(Cine unCine){

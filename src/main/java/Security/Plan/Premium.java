@@ -8,9 +8,8 @@ public class Premium implements Plan {
     private int descuento = 20;
 
     @Override
-    public void publicarComentario(String nombreusuario, String descripcion, int calificacion, Pelicula pelicula) {
-        Comentario com = new Comentario(nombreusuario, descripcion, calificacion);
-        pelicula.addComentario(com);
+    public void publicarComentario(Comentario comentario, Pelicula pelicula) {
+        pelicula.addComentario(comentario);
     }
 
     @Override

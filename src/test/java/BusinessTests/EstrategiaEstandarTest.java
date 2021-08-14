@@ -1,27 +1,26 @@
 package BusinessTests;
 
+import Business.Cadena;
 import Business.Pelicula;
 import Business.PlanificationStrategy.EstrategiaEstandar;
 import Resources.TestResources;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
+import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /*
-              PELICULA      | ¿GENERO  |  ¿ES   | PRIORIDAD
-                            | POPULAR? |   ATP? |
+              PELICULA      | ¿RATING  |  ¿ES   | PRIORIDAD
+                            |  ALTO?   |   ATP? |
         ----------------------------------------------------
-        Black Widow         |    SI    |   SI   | ALTA
-        Volver Al Futuro    |    SI    |   SI   | ALTA
-        Ratatouille         |    SI    |   SI   | ALTA
+        Black Widow         |    NO    |   NO   | BAJA
+        Back to the Future  |    SI    |   SI   | ALTA
+        Ratatouille         |    NO    |   SI   | MEDIA
         Joker               |    SI    |   NO   | ALTA
-        Snatch              |    SI    |   NO   | ALTA
-        Cape Fear           |    SI    |   NO   | BAJA
-        Catch Me If You Can |    SI    |   SI   | MEDIA
+        Snatch              |    NO    |   NO   | BAJA
+        Cape Fear           |    NO    |   NO   | BAJA
+        Catch Me If You Can |    NO    |   NO   | BAJA
 
 */
 
@@ -31,15 +30,15 @@ public class EstrategiaEstandarTest extends TestResources {
     private List<Pelicula> peliculas;
 
     @Before
-    public void inicializar() {
-        this.inicializarPeliculas();
+    public void inicializar() throws IOException {
+        this.inicializarCadena();
         this.estrategiaEstandar = new EstrategiaEstandar();
-        //this.peliculas = Stream.of(blackWidow, volverAlFuturo, ratatouille, joker, snatch, capeFear, catchMeIfYouCan).collect(Collectors.toList());
+        this.peliculas = Cadena.getInstance().getPeliculas();
     }
 
     @Test
-    public void hay5PeliculasDePrioridadALTA() {
-        Assert.assertEquals(5, estrategiaEstandar.seleccionarPrioridadALTA(peliculas).size());
+    public void hayPeliculasDePrioridadALTA() {
+        Assert.assertEquals(2, estrategiaEstandar.seleccionarPrioridadALTA(peliculas).size());
     }
 
     @Test
@@ -48,23 +47,23 @@ public class EstrategiaEstandarTest extends TestResources {
     }
 
     @Test
-    public void hay1PeliculaDePrioridadBAJA() {
-        Assert.assertEquals(1, estrategiaEstandar.seleccionarPrioridadBAJA(peliculas).size());
+    public void hay4PeliculaDePrioridadBAJA() {
+        Assert.assertEquals(4, estrategiaEstandar.seleccionarPrioridadBAJA(peliculas).size());
     }
 
     @Test
-    public void blackWidowEsDePrioridadAlta() {
-        Assert.assertTrue(estrategiaEstandar.seleccionarPrioridadALTA(peliculas).contains(blackWidow));
+    public void backToTheFutureEsDePrioridadAlta() {
+        Assert.assertTrue(estrategiaEstandar.seleccionarPrioridadALTA(peliculas).contains(backToTheFuture));
     }
 
     @Test
-    public void catchMeIfYouCanEsDePrioridadMedia() {
-        Assert.assertTrue(estrategiaEstandar.seleccionarPrioridadMEDIA(peliculas).contains(catchMeIfYouCan));
+    public void ratatouilleEsDePrioridadMedia() {
+        Assert.assertTrue(estrategiaEstandar.seleccionarPrioridadMEDIA(peliculas).contains(ratatouille));
     }
 
     @Test
-    public void capeFearEsDePrioridadBaja() {
-        Assert.assertTrue(estrategiaEstandar.seleccionarPrioridadBAJA(peliculas).contains(capeFear));
+    public void blackWidowEsDePrioridadBaja() {
+        Assert.assertTrue(estrategiaEstandar.seleccionarPrioridadBAJA(peliculas).contains(blackWidow));
     }
 
 }

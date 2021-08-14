@@ -1,5 +1,6 @@
 package Security;
 
+import Business.Comentario;
 import Business.Pelicula;
 import Business.Persona;
 import Business.Reserva;
@@ -23,8 +24,8 @@ public class Cliente extends Usuario {
         reservas.add(reserva);
     }
 
-    public void publicarComentario(String descripcion, int calificacion, Pelicula pelicula) {
-        plan.publicarComentario(this.nombreUsuario, descripcion, calificacion, pelicula);
+    public void publicarComentario(Comentario comentario, Pelicula pelicula) {
+        plan.publicarComentario(comentario, pelicula);
     }
 
     public Cliente(String nombreUsuario, String contraseña, Persona persona, List<Reserva> reservas, Plan plan) {

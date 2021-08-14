@@ -1,10 +1,11 @@
 package Security.Plan;
 
+import Business.Comentario;
 import Business.Pelicula;
 
 public interface Plan {
 
-    void publicarComentario(String nombreusuario, String descripcion, int calificacion, Pelicula pelicula);
+    void publicarComentario(Comentario comentario, Pelicula pelicula);
 
     int getDescuento();
 

@@ -4,25 +4,19 @@ import Resources.TestResources;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import static Business.Enums.Genero.*;
+import java.io.IOException;
 
 public class PeliculasTests extends TestResources {
 
     @Before
-    public void inicializar() {
+    public void inicializar() throws IOException {
         this.inicializarComentarios();
         this.inicializarCadena();
-        this.inicializarPeliculas();
     }
 
     @Test
-    public void blackWidowTieneRatingAlto() {
-        Assert.assertEquals(true, blackWidow.tieneRatingMayorA(7.8));
-    }
-
-    @Test
-    public void ratatouilleTieneRatingAlto() {
-        Assert.assertEquals(true, ratatouille.tieneRatingMayorA(7.8));
+    public void blackWidowTieneRatingMayorA6() {
+        Assert.assertEquals(true, blackWidow.tieneRatingMayorOIgualA(6.0));
     }
 
     @Test
@@ -36,10 +30,11 @@ public class PeliculasTests extends TestResources {
     }
 
     @Test
-    public void agrego2ComentariosABlackWidowYTiene3() {
+    public void agrego2ComentariosABlackWidowYTiene2() {
         blackWidow.addComentario(com_3);
         blackWidow.addComentario(com_4);
-        Assert.assertEquals(3, blackWidow.getComentarios().size());
+        Assert.assertEquals(2, blackWidow.getComentarios().size());
+        Assert.assertEquals(2, cadena.getPeli("Black Widow").getComentarios().size());
     }
 
 }

@@ -42,7 +42,6 @@ public class AsignadorDeHorarios {
         return (unContador.getDayOfWeek() == fechaFinal.getDayOfWeek()) && (unContador.getHourOfDay() == fechaFinal.getHourOfDay());
     }
 
-
     public DateTime crearFechaDeInicio(){
         DateTime fechaDeHoy = new DateTime();
         int diaDeLaSemana = fechaDeHoy.getDayOfWeek();
@@ -57,7 +56,6 @@ public class AsignadorDeHorarios {
         }else{
             return 11 - diaDeLaSemana;
         }
-
     }
 
     public DateTime crearFechaFinal(){
@@ -110,7 +108,6 @@ public class AsignadorDeHorarios {
         }else{
             return fechaActual.plusDays(1).withHourOfDay(10).withMinuteOfHour(0).withSecondOfMinute(0);
         }
-
     }
 
 }

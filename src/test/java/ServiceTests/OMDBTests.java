@@ -1,12 +1,10 @@
 package ServiceTests;
 
 import Services.OMDB.WebServiceClient;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
-
-/* Despues los borro, era para ver algo nomas
-* */
 
 public class OMDBTests {
 
@@ -18,15 +16,15 @@ public class OMDBTests {
     }
 
     @Test
-    public void obtengoActoresDeBlackWidow() throws IOException {
-        String actores = webServiceClient.ejecutar("black widow").getActors();
-        System.out.print(actores);
+    public void obtengoActoresYDuracionDeBlackWidowComoStrings() throws IOException {
+        String actores = "Scarlett Johansson, Florence Pugh, David Harbour";
+        Assert.assertEquals(actores, webServiceClient.ejecutar("black widow").getActors());
+        Assert.assertEquals("134 min", webServiceClient.ejecutar("black widow").getRuntime());
     }
 
     @Test
-    public void obtengoDescripcionDeTitanic() throws IOException {
-        String descripcion = webServiceClient.ejecutar("titanic").getPlot();
-        System.out.print(descripcion);
+    public void obtengoRatingDeIMDBDeJumanji() throws IOException {
+        Assert.assertEquals("7.0", webServiceClient.ejecutar("Jumanji").getImdbRating());
     }
 
 }

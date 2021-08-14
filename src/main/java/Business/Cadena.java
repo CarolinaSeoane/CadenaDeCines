@@ -30,7 +30,7 @@ public class Cadena {
             instance.peliculas = new ArrayList<>();
             //instance.usuarios = new ArrayList<>();
             //instance.superAdministradores = new ArrayList<>();
-            //instance.productos = new ArrayList<>();
+            instance.productos = new ArrayList<>();
         }
         return instance;
     }
@@ -38,11 +38,17 @@ public class Cadena {
     /*  *****   *****   Fin Singleton   *****   *****   */
 
     public void agregarPelicula(Pelicula unaPelicula){
-        peliculas.add(unaPelicula);
+        if(!this.tienePeli(unaPelicula.getTitulo())){
+            peliculas.add(unaPelicula);
+        }
     }
 
     public Pelicula getPeli(String unTitulo) {
         return peliculas.stream().filter(unaPeli -> unTitulo.equals(unaPeli.getTitulo())).findAny().orElse(null);
+    }
+
+    public Boolean tienePeli(String unTitulo) {
+        return peliculas.stream().anyMatch(unaPeli -> unTitulo.equals(unaPeli.getTitulo()));
     }
 
 }

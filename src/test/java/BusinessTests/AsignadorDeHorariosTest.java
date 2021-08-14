@@ -4,6 +4,7 @@ import Resources.TestResources;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import java.io.IOException;
 
 /*
 
@@ -17,54 +18,49 @@ Esta hecho de manera tal que ninguna pelicula puede empezar despues de las 23, a
 
 Según la estrategia Estandar, la planificación sería:
 
--------------------------| CINE A |--------------------------------------
+
+ --------------------------------------| CINE A |--------------------------------------
 
           PELICULA          | DURACION  |     hh:mm
                             | (minutos) | (con Limpieza)
         ------------------------------------------------
-        Black Widow         |    134    |     02:44
-        Volver Al Futuro    |    116    |     02:26
-        Ratatouille         |    118    |     02:28
+        Back to the Future  |    116    |     02:26
         Joker               |    122    |     02:32
-        Snatch              |    104    |     02:14
-        Catch Me If You Can |    141    |     02:51
+        Ratatouille         |    111    |     02:21
         -------------------------------------------------
 
----------------------------------------------------------------------------------------------
-SALA A1:                |   SALA A2                         |   SALA A3
-------------------------|-----------------------------------|--------------------------------
-    10:00 BLACK WIDOW   |       10:00 VOLVER AL FUTURO      |       10:00 RATATOUILLE
-    12:44 JOKER         |       12:24 SNATCH                |       12:28 CATCH ME IF YOU CAN
-    15:16 BLACK WIDOW   |       14:38 VOLVER AL FUTURO      |       15:19 RATATOUILLE
-    18:00 JOKER         |       17:02 SNATCH                |       17:47 CATCH ME IF YOU CAN
-    20:32 BLACK WIDOW   |       19:16 VOLVER AL FUTURO      |       20:38 RATATOUILLE
-    23:16 --            |       21:40 JOKER                 |       23:06 --
-                        |       00:12 --                    |
----------------------------------------------------------------------------------------------
+ ---------------------------------------------------------------------------------------------------
+ |            SALA A1             |            SALA A2             |           SALA A3             |
+ |--------------------------------|--------------------------------|--------------------------------
+ | 10:00 Back to the Future       | 10:00 Joker                    | 10:00 Ratatouille             |
+ | 12:26 Back to the Future       | 12:32 Joker                    | 12:21 Ratatouille             |
+ | 14:52 Back to the Future       | 15:04 Joker                    | 14:42 Ratatouille             |
+ | 17:18 Back to the Future       | 17:36 Joker                    | 17:03 Ratatouille             |
+ | 19:44 Back to the Future       | 20:08 Joker                    | 19:24 Ratatouille             |
+ | 22:10 Back to the Future       | 22:40 Joker                    | 21:45 Ratatouille             |
+ ---------------------------------------------------------------------------------------------------
 
--------------------------| CINE B |--------------------------------------
+
+ --------------------------------------| CINE B |--------------------------------------
 
           PELICULA          | DURACION  |     hh:mm
                             | (minutos) | (con Limpieza)
         ------------------------------------------------
-        Black Widow         |    134    |     02:44
-        Volver Al Futuro    |    116    |     02:26
-        Ratatouille         |    118    |     02:28
+        Back to the Future  |    116    |     02:26
         Joker               |    122    |     02:32
-        Snatch              |    104    |     02:14
-        Catch Me If You Can |    141    |     02:51
-        ------------------------------------------------
+        Ratatouille         |    111    |     02:21
+        -------------------------------------------------
 
--------------------------------------------------------------
-SALA B1:                |   SALA B2                         |
-------------------------|-----------------------------------|
-    10:00 BLACK WIDOW   |       10:00 VOLVER AL FUTURO      |
-    12:44 RATATOUILLE   |       12:26 JOKER                 |
-    15:12 SNATCH        |       14:58 CATCH ME IF YOU CAN   |
-    17:26 BLACK WIDOW   |       17:49 VOLVER AL FUTURO      |
-    20:10 RATATOUILLE   |       20:15 JOKER                 |
-    22:38 SNATCH        |       22:47 CATCH ME IF YOU CAN   |
--------------------------------------------------------------
+ -------------------------------------------------------------------
+ |            SALA B1             |            SALA B2             |
+ |--------------------------------|--------------------------------|
+ | 10:00 Back to the Future       | 10:00 Joker                    |
+ | 12:26 Ratatouille              | 12:32 Back to the Future       |
+ | 14:47 Joker                    | 14:58 Ratatouille              |
+ | 17:19 Back to the Future       | 17:19 Joker                    |
+ | 19:45 Ratatouille              | 19:51 Back to the Future       |
+ | 22:06 Joker                    | 22:17 Ratatouille              |
+ -------------------------------------------------------------------
 
 
 --------------------------|  CINE C  |------------------------------------------------------------
@@ -72,100 +68,84 @@ SALA B1:                |   SALA B2                         |
           PELICULA          | DURACION  |     hh:mm
                             | (minutos) | (con Limpieza)
         ------------------------------------------------
-        Black Widow         |    134    |     02:44
-        Volver Al Futuro    |    116    |     02:26
-        Ratatouille         |    118    |     02:28
+        Back to the Future  |    113    |     02:26
         Joker               |    122    |     02:32
-        Snatch              |    104    |     02:14
+        Black Widow         |    134    |     02:44
+        Snatch              |    102    |     02:12
         Cape Fear           |    128    |     02:38
+        Catch Me If You Can |    141    |     02:51
         -------------------------------------------------
 
------------------------------
-SALA C1:                    |
-----------------------------|
-    10:00 BLACK WIDOW       |
-    12:44 VOLVER AL FUTURO  |
-    15:10 RATATOUILLE       |
-    17:38 JOKER             |
-    20:10 SNATCH            |
-    22:24 CAPE FEAR         |
------------------------------
+ ----------------------------------
+ |            SALA C1             |
+ |--------------------------------|
+ | 10:00 Back to the Future       |
+ | 12:26 Joker                    |
+ | 14:58 Black Widow              |
+ | 17:42 Snatch                   |
+ | 19:54 Cape Fear                |
+ | 22:32 Catch Me If You Can      |
+ ----------------------------------
 
 -----------------------------------------------------------------------------------------------
-
-
 */
 
 public class AsignadorDeHorariosTest extends TestResources {
 
     @Before
-    public void inicializar(){
-        this.inicializarPeliculas();
+    public void inicializar() throws IOException {
         this.inicializarAsientos();
         this.inicializarSalas();
         this.inicializarAsignadoresDeHorarios();
         this.inicializarCines();
         this.inicializarPlanificador();
         this.inicializarCadena();
+
+        planificador.planificar();
+        cineA.realizarPlanificacionSemanal();
+        cineB.realizarPlanificacionSemanal();
+        cineC.realizarPlanificacionSemanal();
     }
 
     // ------------------------ TESTS SOBRE EL CINE A -----------------------
     @Test
-    public void elCineATiene16Funciones(){
-        planificador.planificar();
-        cineA.realizarPlanificacionSemanal();
-        //cineA.mostrarFunciones();
-        Assert.assertEquals(16, cineA.cantidadDeFunciones());
+    public void elCineATiene18Funciones(){
+        Assert.assertEquals(18, cineA.cantidadDeFunciones());
     }
 
     @Test
-    public void laSala1DelCineATiene5Funciones(){
-        planificador.planificar();
-        cineA.realizarPlanificacionSemanal();
-        Assert.assertEquals(5, cineA.cantidadDeFuncionesPorSala(salaA1));
+    public void laSala1DelCineATiene6Funciones(){
+        Assert.assertEquals(6, cineA.cantidadDeFuncionesPorSala(salaA1));
     }
 
     @Test
     public void laSala2DelCineATiene6Funciones(){
-        planificador.planificar();
-        cineA.realizarPlanificacionSemanal();
         Assert.assertEquals(6, cineA.cantidadDeFuncionesPorSala(salaA2));
     }
 
     @Test
-    public void laSala3DelCineATiene5Funciones(){
-        planificador.planificar();
-        cineA.realizarPlanificacionSemanal();
-        Assert.assertEquals(5, cineA.cantidadDeFuncionesPorSala(salaA3));
+    public void laSala3DelCineATiene6Funciones(){
+        Assert.assertEquals(6, cineA.cantidadDeFuncionesPorSala(salaA3));
     }
 
     @Test
     public void laSala3DelCineAPasaRatatouilleComoUltimaPelicula(){
-        planificador.planificar();
-        cineA.realizarPlanificacionSemanal();
-        Assert.assertEquals("Ratatouille", cineA.getFunciones().get(salaA3).get(4).getPelicula().getTitulo());
+        Assert.assertEquals(ratatouille, cineA.getFunciones().get(salaA3).get(4).getPelicula());
     }
 
     @Test
-    public void laSala1DelCineAPasaBlackWidowComoPrimerPelicula(){
-        planificador.planificar();
-        cineA.realizarPlanificacionSemanal();
-        Assert.assertEquals("Black Widow", cineA.getFunciones().get(salaA1).get(0).getPelicula().getTitulo());
+    public void laSala1DelCineAPasaBackToTheFutureComoPrimerPelicula(){
+        Assert.assertEquals(backToTheFuture, cineA.getFunciones().get(salaA1).get(0).getPelicula());
     }
 
     // ------------------------ TESTS SOBRE EL CINE B -----------------------
     @Test
     public void elCineBTiene12Funciones(){
-        planificador.planificar();
-        cineB.realizarPlanificacionSemanal();
-        //cineB.mostrarFunciones();
         Assert.assertEquals(12, cineB.cantidadDeFunciones());
     }
 
     @Test
     public void laSala1DelCineBTiene6Funciones(){
-        planificador.planificar();
-        cineB.realizarPlanificacionSemanal();
         Assert.assertEquals(6, cineB.cantidadDeFuncionesPorSala(salaB1));
     }
 
@@ -173,24 +153,12 @@ public class AsignadorDeHorariosTest extends TestResources {
     // ------------------------ TESTS SOBRE EL CINE C -----------------------
     @Test
     public void elCineCTiene6Funciones(){
-        planificador.planificar();
-        cineC.realizarPlanificacionSemanal();
-        //cineC.mostrarFunciones();
         Assert.assertEquals(6, cineC.cantidadDeFunciones());
     }
 
     @Test
-    public void laSala3DelCineCPasaBlackWidowComoPrimerPelicula(){
-        planificador.planificar();
-        cineC.realizarPlanificacionSemanal();
-        Assert.assertEquals("Black Widow", cineC.getFunciones().get(salaC1).get(0).getPelicula().getTitulo());
-    }
-
-    @Test
-    public void laSala3DelCineCPasaJokerALas17(){
-        planificador.planificar();
-        cineC.realizarPlanificacionSemanal();
-        Assert.assertEquals("Joker", cineC.buscarPeliculaPorHora(salaC1, 17));
+    public void laSala1DelCineCPasaBackToTheFutureComoPrimerPelicula(){
+        Assert.assertEquals(backToTheFuture, cineC.getFunciones().get(salaC1).get(0).getPelicula());
     }
 
 }

@@ -4,6 +4,8 @@ import Resources.TestResources;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -11,7 +13,7 @@ import java.util.stream.Stream;
 public class TicketControllerTests extends TestResources {
 
     @Before
-    public void inicializar() {
+    public void inicializar() throws IOException {
         this.inicializarCadena();
         this.inicializarPeliculas();
         this.inicializarAsientos();
