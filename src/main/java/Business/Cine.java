@@ -1,6 +1,7 @@
 package Business;
 
 import Business.SusbcribersObserver.Notificador;
+import Security.Administrador;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.SneakyThrows;
@@ -13,7 +14,7 @@ public class Cine {
 
     private String nombre;
     private String direccion;
-    // private List<Administrador> administradores;
+    private List<Administrador> administradores;
     private Map<Sala, List<Funcion>> funciones;
     private AsignadorDeHorarios asignadorDeHorarios;
     private Notificador notificador;
@@ -34,6 +35,14 @@ public class Cine {
 
     public void desuscribir(String unEmail){
         notificador.eliminarSuscriptor(unEmail);
+    }
+
+    public void agregarAdministrador(Administrador administrador) {
+        administradores.add(administrador);
+    }
+
+    public void eliminarAdministrador(Administrador administrador) {
+        administradores.remove(administrador);
     }
 
     // Metodos para Tests
@@ -62,25 +71,4 @@ public class Cine {
         return resultado;
     }
 
-    // Este método es solo para mostrar algo lindo por pantalla en los Test. Despues se puede borrar
-    public void mostrarFunciones() {
-        /*
-        --------------------- FUNCIONES -------------------------
-        SALA
-
-        HORA : MINUTOS  PELICULA
-        */
-        int contadorSala = 1;
-        System.out.println("------------ FUNCIONES ------------");
-        for (Map.Entry<Sala, List<Funcion>> entrada : this.funciones.entrySet()) {
-            System.out.println("SALA " + contadorSala + "\n");
-            List<Funcion> funciones = entrada.getValue();
-            for(Funcion unaFuncion : funciones){
-                // El primer numero es el dia en números del mes, para probar que esta yendo al jueves siempre
-                System.out.print(unaFuncion.getFecha().getDayOfMonth() + " " + unaFuncion.getFecha().getHourOfDay() + ":" + unaFuncion.getFecha().getMinuteOfHour() + "  " + unaFuncion.getPelicula().getTitulo() + "\n");
-            }
-            System.out.print("\n");
-        }
-
-    }
 }

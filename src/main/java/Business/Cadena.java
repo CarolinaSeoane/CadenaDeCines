@@ -1,6 +1,8 @@
 package Business;
 
 import Business.Composite.Producto;
+import Security.SuperAdministrador;
+import Security.Usuario;
 import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +12,8 @@ public class Cadena {
 
     private List<Cine> cines;
     private List<Pelicula> peliculas;
-    //private List<Usuario> usuarios;
-    //private List<SuperAdministrador> superAdministradores;
+    private List<Usuario> usuarios;
+    private List<SuperAdministrador> superAdmins;
     private List<Producto> productos;
     private int porcentajeGanancia;
     private int descuentoPorCombo;
@@ -28,8 +30,8 @@ public class Cadena {
             instance = new Cadena();
             instance.cines = new ArrayList<>();
             instance.peliculas = new ArrayList<>();
-            //instance.usuarios = new ArrayList<>();
-            //instance.superAdministradores = new ArrayList<>();
+            instance.usuarios = new ArrayList<>();
+            instance.superAdmins = new ArrayList<>();
             instance.productos = new ArrayList<>();
         }
         return instance;
@@ -49,6 +51,14 @@ public class Cadena {
 
     public Boolean tienePeli(String unTitulo) {
         return peliculas.stream().anyMatch(unaPeli -> unTitulo.equals(unaPeli.getTitulo()));
+    }
+
+    public void agregarSuperAdmin(SuperAdministrador superAdministrador) {
+        superAdmins.add(superAdministrador);
+    }
+
+    public void eliminarSuperAdmin(SuperAdministrador superAdministrador) {
+        superAdmins.remove(superAdministrador);
     }
 
 }

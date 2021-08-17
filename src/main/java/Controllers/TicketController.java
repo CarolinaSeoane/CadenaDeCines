@@ -1,15 +1,15 @@
 package Controllers;
 
-/* Para evitar realizar la interaccion con el usuario (que aun no hemos visto en clase) decidimos que el metodo
- * ejecutar(...) reciba como parametro aquellos objetos que necesitara para realizar la compra de la entrada.
- * Esto tambien nos permitira realizar los tests correspondientes.
- */
-
 import Business.*;
 import Business.Composite.Producto;
 import Security.Cliente;
 import java.util.List;
 import java.util.UUID;
+
+/* Para evitar realizar la interaccion con el usuario (que aun no hemos visto en clase) decidimos que el metodo
+ * ejecutar(...) reciba como parametro aquellos objetos que necesitara para realizar la compra de la entrada.
+ * Esto tambien nos permitira realizar los tests correspondientes.
+ */
 
 public class TicketController {
 
@@ -21,9 +21,7 @@ public class TicketController {
         int descuento = cliente.getDescuento();
 
         int precioFinal = this.calcularPrecioFinal(precioAsientos + precioProductos, porcentajeGanancia - descuento);
-
-        Reserva reserva = new Reserva(cliente, funcion, asientos, productos, precioFinal, cod_reserva);
-
+        Reserva reserva = new Reserva(funcion, asientos, productos, precioFinal, cod_reserva);
         cliente.guardarReserva(reserva);
     }
 

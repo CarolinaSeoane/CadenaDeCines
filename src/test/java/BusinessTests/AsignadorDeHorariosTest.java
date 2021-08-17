@@ -97,6 +97,8 @@ public class AsignadorDeHorariosTest extends TestResources {
         this.inicializarAsientos();
         this.inicializarSalas();
         this.inicializarAsignadoresDeHorarios();
+        this.inicializarPersonas();
+        this.inicializarAdministradores();
         this.inicializarCines();
         this.inicializarPlanificador();
         this.inicializarCadena();

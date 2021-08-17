@@ -38,14 +38,13 @@ public class EstrategiaInfantil implements PlanificationStrategy {
     int cortePrioridadAlta  = 25;
     int cortePrioridadMedia = 15;
 
-
-    public int determinarPuntaje(Pelicula unaPelicula){
+    private int determinarPuntaje(Pelicula unaPelicula){
         int puntajeTotal = 0;
         if(unaPelicula.tieneRatingMayorOIgualA(corteRatingAlto)) {
             puntajeTotal += puntajeRatingAlto;
-        }else if(unaPelicula.tieneRatingMayorOIgualA(corteRatingMedio)) {
+        } else if(unaPelicula.tieneRatingMayorOIgualA(corteRatingMedio)) {
             puntajeTotal += puntajeRatingMedio;
-        }else {
+        } else {
             puntajeTotal += puntajeRatingBajo;
         }
         if(unaPelicula.getATP()) {
@@ -59,17 +58,17 @@ public class EstrategiaInfantil implements PlanificationStrategy {
 
     @Override
     public List<Pelicula> seleccionarPrioridadALTA(List<Pelicula> todasLasPelis) {
-        return todasLasPelis.stream().filter((pelicula)->(this.determinarPuntaje(pelicula) > cortePrioridadAlta)).collect(Collectors.toList());
+        return todasLasPelis.stream().filter(pelicula->this.determinarPuntaje(pelicula) > cortePrioridadAlta).collect(Collectors.toList());
     }
 
     @Override
     public List<Pelicula> seleccionarPrioridadMEDIA(List<Pelicula> todasLasPelis) {
-        return todasLasPelis.stream().filter((pelicula)->((this.determinarPuntaje(pelicula) >= cortePrioridadMedia) && (this.determinarPuntaje(pelicula) <= cortePrioridadAlta))).collect(Collectors.toList());
+        return todasLasPelis.stream().filter(pelicula->(this.determinarPuntaje(pelicula) >= cortePrioridadMedia) && (this.determinarPuntaje(pelicula) <= cortePrioridadAlta)).collect(Collectors.toList());
     }
 
     @Override
     public List<Pelicula> seleccionarPrioridadBAJA(List<Pelicula> todasLasPelis) {
-        return todasLasPelis.stream().filter((pelicula)->(this.determinarPuntaje(pelicula) < cortePrioridadMedia)).collect(Collectors.toList());
+        return todasLasPelis.stream().filter(pelicula->this.determinarPuntaje(pelicula) < cortePrioridadMedia).collect(Collectors.toList());
     }
 
 }

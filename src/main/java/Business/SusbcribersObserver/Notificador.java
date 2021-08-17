@@ -28,11 +28,12 @@ public class Notificador {
         }
     }
 
-    public void agregarSuscriptor(String unEmail){
+    public void agregarSuscriptor(String unEmail) {
         suscriptores.add(unEmail);
     }
 
-    public void eliminarSuscriptor(String unEmail){
+    public void eliminarSuscriptor(String unEmail) {
         suscriptores.remove(unEmail);
     }
+
 }

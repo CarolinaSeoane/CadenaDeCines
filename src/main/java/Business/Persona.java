@@ -18,15 +18,14 @@ public class Persona implements Suscriptor {
     private int nroDoc;
     private String email;
     private List<Reserva> reservas;
-    private String generosPreferidos;
     private List<Cine> suscripciones;
 
-    public void suscribirseA(Cine unCine){
+    public void suscribirseA(Cine unCine) {
         suscripciones.add(unCine);
         unCine.suscribir(this.email);
     }
 
-    public void desuscribirseDe(Cine unCine){
+    public void desuscribirseDe(Cine unCine) {
         suscripciones.remove(unCine);
         unCine.desuscribir(this.email);
     }
@@ -35,4 +34,5 @@ public class Persona implements Suscriptor {
     public String update() {
         return this.email;
     }
+
 }

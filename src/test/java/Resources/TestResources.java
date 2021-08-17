@@ -10,6 +10,7 @@ import Business.PlanificationStrategy.Planificador;
 import Business.SusbcribersObserver.Notificador;
 import Controllers.PeliculasController;
 import Controllers.TicketController;
+import Security.Administrador;
 import Security.Cliente;
 import Security.Plan.Basico;
 import Security.Plan.Premium;
@@ -97,6 +98,11 @@ public class TestResources {
     protected Cliente userCaro;
     protected Cliente userFacu;
 
+    // Usuarios Administradores
+    protected Administrador adminCaro;
+    protected Administrador adminFacu;
+    protected Administrador adminJuan;
+
     protected PeliculasController peliculasController;
 
     public void inicializarPeliculas() {
@@ -161,9 +167,9 @@ public class TestResources {
     }
 
     public void inicializarCines() {
-        this.cineA = new Cine("CineA", "CineAPiso1", this.inicializarFuncionesDeA(), asignadorDeHorariosA, new Notificador(new ArrayList<>()));
-        this.cineB = new Cine("CineB", "CineBPiso1", this.inicializarFuncionesDeB(), asignadorDeHorariosB, new Notificador(new ArrayList<>()));
-        this.cineC = new Cine("CineC", "CineCPiso1", this.inicializarFuncionesDeC(), asignadorDeHorariosC, new Notificador(new ArrayList<>()));
+        this.cineA = new Cine("CineA", "CineAPiso1", Stream.of(adminCaro).collect(Collectors.toList()), this.inicializarFuncionesDeA(), asignadorDeHorariosA, new Notificador(new ArrayList<>()));
+        this.cineB = new Cine("CineB", "CineBPiso1", Stream.of(adminFacu).collect(Collectors.toList()), this.inicializarFuncionesDeB(), asignadorDeHorariosB, new Notificador(new ArrayList<>()));
+        this.cineC = new Cine("CineC", "CineCPiso1", Stream.of(adminJuan).collect(Collectors.toList()), this.inicializarFuncionesDeC(), asignadorDeHorariosC, new Notificador(new ArrayList<>()));
     }
 
     public Map<Sala, List<Funcion>> inicializarFuncionesDeA() { // A tiene 3 salas: A1, A2, A3
@@ -196,7 +202,6 @@ public class TestResources {
                 43050214,
                 "carolina.b.seoane@gmail.com",
                 new ArrayList<>(),
-                "Crime, Thriller",
                 new ArrayList<>());
 
         facu = new Persona("Facundo",
@@ -206,7 +211,6 @@ public class TestResources {
                 42952776,
                 "facu.verge@gmail.com",
                 new ArrayList<>(),
-                "Adventure, Comedy, Sci-Fi",
                 new ArrayList<>());
     }
 
@@ -282,4 +286,12 @@ public class TestResources {
                 new Premium()
         );
     }
+
+    public void inicializarAdministradores() {
+        this.inicializarPersonas();
+        this.adminCaro = new Administrador("caro", "hola", this.caro);
+        this.adminFacu = new Administrador("facu", "hola2", this.facu);
+        this.adminFacu = new Administrador("juan", "hola3", new Persona("Juan", "Paz", new Date(2000, Calendar.MAY, 23),TipoDoc.DNI, 45324445,"pancho@gmail.com", new ArrayList<>(), new ArrayList<>()));
+    }
+
 }

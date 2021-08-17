@@ -22,7 +22,6 @@ import java.util.*;
 *
 * */
 
-
 public class Planificador {
 
     private PlanificationStrategy estrategiaActual;
@@ -46,7 +45,6 @@ public class Planificador {
 
 
     public void planificar() {
-
         List<Pelicula> todasLasPelis = Cadena.getInstance().getPeliculas();
 
         List<Pelicula> ALTA = estrategiaActual.seleccionarPrioridadALTA(todasLasPelis);
@@ -58,7 +56,6 @@ public class Planificador {
 
 
     private void enviarPeliculasALosCines(List<Pelicula> ALTA, List<Pelicula> MEDIA, List<Pelicula> BAJA) {
-
         List<Cine> cines = Cadena.getInstance().getCines();
         int listSize = cines.size();
 
@@ -76,7 +73,6 @@ public class Planificador {
 
         for (int i = (listSize - 1); i >= (listSize - unTercioCines); i--)
             cines.get(i).recibirPeliculas(BAJA);
-
     }
 
     public void cambiarPlanificacion(int nuevaPlanificacion) {

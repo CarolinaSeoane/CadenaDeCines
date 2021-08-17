@@ -17,14 +17,16 @@ public class Pelicula {
     private List<Comentario> comentarios;
     private double imdbRating;
 
-
-    public Boolean duraMenosDe(int unosMinutos){ return this.duracion < unosMinutos; }
+    public Boolean duraMenosDe(int unosMinutos) {
+        return this.duracion < unosMinutos;
+    }
 
     public void addComentario(Comentario comentario) {
         this.comentarios.add(comentario);
     }
 
-    public boolean tieneRatingMayorOIgualA(Double unRating) {
+    public Boolean tieneRatingMayorOIgualA(Double unRating) {
         return this.getImdbRating() >= unRating;
-    };
+    }
+
 }

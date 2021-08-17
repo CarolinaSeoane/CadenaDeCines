@@ -13,6 +13,7 @@ public class FuncionTests extends TestResources {
     public void inicializar() {
         this.inicializarAsientos();
         this.inicializarSalas();
+        this.inicializarAdministradores();
         this.inicializarCadena();
         this.inicializarFunciones();
     }

@@ -10,7 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 public class Reserva {
 
-    private Usuario usuario;
     private Funcion funcion;
     private List<Asiento> asientos;
     private List<Producto> productos;
