@@ -1,8 +1,8 @@
 package Business;
 
 import Business.Composite.Producto;
+import Security.Cliente;
 import Security.SuperAdministrador;
-import Security.Usuario;
 import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class Cadena {
 
     private List<Cine> cines;
     private List<Pelicula> peliculas;
-    private List<Usuario> usuarios;
+    private List<Cliente> clientes;
     private List<SuperAdministrador> superAdmins;
     private List<Producto> productos;
     private int porcentajeGanancia;
@@ -30,7 +30,7 @@ public class Cadena {
             instance = new Cadena();
             instance.cines = new ArrayList<>();
             instance.peliculas = new ArrayList<>();
-            instance.usuarios = new ArrayList<>();
+            instance.clientes = new ArrayList<>();
             instance.superAdmins = new ArrayList<>();
             instance.productos = new ArrayList<>();
         }
@@ -38,6 +38,17 @@ public class Cadena {
     }
 
     /*  *****   *****   Fin Singleton   *****   *****   */
+
+    public static Cadena getTestInstance(){
+        instance = new Cadena();
+        instance = new Cadena();
+        instance.cines = new ArrayList<>();
+        instance.peliculas = new ArrayList<>();
+        instance.clientes = new ArrayList<>();
+        instance.superAdmins = new ArrayList<>();
+        instance.productos = new ArrayList<>();
+        return instance;
+    }
 
     public void agregarPelicula(Pelicula unaPelicula){
         if(!this.tienePeli(unaPelicula.getTitulo())){

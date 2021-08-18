@@ -8,8 +8,8 @@ import Business.Enums.Tamanio;
 import Business.Enums.TipoDoc;
 import Business.PlanificationStrategy.Planificador;
 import Business.SusbcribersObserver.Notificador;
-import Controllers.PeliculasController;
-import Controllers.TicketController;
+import Business.BuscadorDePeliculas;
+import Business.CompradorDeEntrada;
 import Security.Administrador;
 import Security.Cliente;
 import Security.Plan.Basico;
@@ -82,7 +82,7 @@ public class TestResources {
     protected Combo combo3;
 
     // Ticket Controller
-    protected TicketController ticketController;
+    protected CompradorDeEntrada compradorDeEntrada;
 
     // Personas
     protected Persona caro;
@@ -103,10 +103,10 @@ public class TestResources {
     protected Administrador adminFacu;
     protected Administrador adminJuan;
 
-    protected PeliculasController peliculasController;
+    protected BuscadorDePeliculas peliculasController;
 
     public void inicializarPeliculas() {
-        this.peliculasController = new PeliculasController();
+        this.peliculasController = new BuscadorDePeliculas();
         try {
             peliculasController.ejecutar("Black Widow");
             peliculasController.ejecutar("Back To The Future");
@@ -121,7 +121,6 @@ public class TestResources {
     }
 
     public void getObjectPelicula() {
-        Cadena cadena = Cadena.getInstance();
         blackWidow = cadena.getPeli("Black Widow");
         backToTheFuture = cadena.getPeli("Back to the Future");
         ratatouille = cadena.getPeli("Ratatouille");
@@ -193,35 +192,34 @@ public class TestResources {
         return funciones;
     }
 
-    public void inicializarPersonas(){
+    public void inicializarPersonas() {
         caro = new Persona(
                 "Carolina",
                 "Seoane",
                 new Date(2001, Calendar.FEBRUARY, 07),
                 TipoDoc.DNI,
                 43050214,
-                "carolina.b.seoane@gmail.com",
-                new ArrayList<>(),
-                new ArrayList<>());
+                "carolina.b.seoane@gmail.com"
+                );
 
         facu = new Persona("Facundo",
                 "Verge",
                 new Date(2000, Calendar.OCTOBER, 05),
                 TipoDoc.DNI,
                 42952776,
-                "facu.verge@gmail.com",
-                new ArrayList<>(),
-                new ArrayList<>());
+                "facu.verge@gmail.com"
+        );
     }
 
-    public void inicializarCadena() {
-        this.cadena = Cadena.getInstance();
+    public Cadena inicializarCadena() {
+        this.cadena = Cadena.getTestInstance();
         this.inicializarPeliculas();
         this.getObjectPelicula();
         cadena.setCines(Stream.of(cineA, cineB, cineC).collect(Collectors.toList()));
         cadena.setProductos(Stream.of(pochocloChico, pochocloGrande, nachosMedianos, gaseosaGrande).collect(Collectors.toList()));
         cadena.setPorcentajeGanancia(100);
         cadena.setDescuentoPorCombo(15);
+        return cadena;
     }
 
     public void inicializarPlanificador() {
@@ -240,7 +238,7 @@ public class TestResources {
     }
 
     public void inicializarTicketController() {
-        this.ticketController = new TicketController();
+        this.compradorDeEntrada = new CompradorDeEntrada();
     }
 
     public void inicializarComentarios() {
@@ -274,16 +272,19 @@ public class TestResources {
                 "carooseoane",
                 "nnidfda",
                 caro,
+                new Basico(),
                 new ArrayList<>(),
-                new Basico()
+                new ArrayList<>()
         );
 
         this.userFacu = new Cliente(
                 "facuverge",
                 "fddsafs",
                 facu,
+                new Premium(),
                 new ArrayList<>(),
-                new Premium()
+                new ArrayList<>()
+
         );
     }
 
@@ -291,7 +292,7 @@ public class TestResources {
         this.inicializarPersonas();
         this.adminCaro = new Administrador("caro", "hola", this.caro);
         this.adminFacu = new Administrador("facu", "hola2", this.facu);
-        this.adminFacu = new Administrador("juan", "hola3", new Persona("Juan", "Paz", new Date(2000, Calendar.MAY, 23),TipoDoc.DNI, 45324445,"pancho@gmail.com", new ArrayList<>(), new ArrayList<>()));
+        this.adminFacu = new Administrador("juan", "hola3", new Persona("Juan", "Paz", new Date(2000, Calendar.MAY, 23),TipoDoc.DNI, 45324445,"pancho@gmail.com"));
     }
 
 }

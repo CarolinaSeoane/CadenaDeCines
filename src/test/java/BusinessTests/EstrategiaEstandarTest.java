@@ -28,12 +28,13 @@ public class EstrategiaEstandarTest extends TestResources {
 
     private EstrategiaEstandar estrategiaEstandar;
     private List<Pelicula> peliculas;
+    private Cadena cadena;
 
     @Before
     public void inicializar() throws IOException {
-        this.inicializarCadena();
+        this.cadena = inicializarCadena();
         this.estrategiaEstandar = new EstrategiaEstandar();
-        this.peliculas = Cadena.getInstance().getPeliculas();
+        this.peliculas = cadena.getPeliculas();
     }
 
     @Test

@@ -1,13 +1,11 @@
-package Controllers;
+package Business;
 
-import Business.Cadena;
-import Business.Pelicula;
 import Services.OMDB.Response.MovieData;
 import Services.OMDB.WebServiceClient;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class PeliculasController {
+public class BuscadorDePeliculas {
 
     public void ejecutar(String tituloPelicula) throws IOException {
         WebServiceClient webServiceClient = new WebServiceClient();

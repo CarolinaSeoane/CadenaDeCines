@@ -1,16 +1,15 @@
-package ControllersTests;
+package BusinessTests;
 
 import Resources.TestResources;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class TicketControllerTests extends TestResources {
+public class CompradorDeEntradaTests extends TestResources {
 
     @Before
     public void inicializar() throws IOException {
@@ -26,17 +25,17 @@ public class TicketControllerTests extends TestResources {
 
     @Test
     public void elPrecioDeCombo1yCombo2Es1573() {
-        Assert.assertEquals(1573, ticketController.calcularPrecioProductos(Stream.of(combo1, combo2).collect(Collectors.toList())));
+        Assert.assertEquals(1573, compradorDeEntrada.calcularPrecioProductos(Stream.of(combo1, combo2).collect(Collectors.toList())));
     }
 
     @Test
     public void elPrecioDeLosProductosEs1678() {
-        Assert.assertEquals(1678, ticketController.calcularPrecioProductos(Stream.of(gaseosaGrande, combo3, nachosMedianos).collect(Collectors.toList())));
+        Assert.assertEquals(1678, compradorDeEntrada.calcularPrecioProductos(Stream.of(gaseosaGrande, combo3, nachosMedianos).collect(Collectors.toList())));
     }
 
     @Test
     public void facuCompraEntradaSinProductosYConDescuento() {
-        ticketController.ejecutar(userFacu, funcionA_A1_blackWidow, Stream.of(A1_A1).collect(Collectors.toList()), new ArrayList<>());
+        compradorDeEntrada.ejecutar(userFacu, funcionA_A1_blackWidow, Stream.of(A1_A1).collect(Collectors.toList()), new ArrayList<>());
         // Precio Asientos              = $300
         // Precio Productos             = $0
         // Precio Porcentaje ganacia    = 100%
@@ -47,7 +46,7 @@ public class TicketControllerTests extends TestResources {
 
     @Test
     public void facuCompra2EntradasConProductosYConDescuento() {
-        ticketController.ejecutar(userFacu, funcionA_A1_blackWidow, Stream.of(A1_A1, A1_A2).collect(Collectors.toList()), Stream.of(combo1, combo2).collect(Collectors.toList()));
+        compradorDeEntrada.ejecutar(userFacu, funcionA_A1_blackWidow, Stream.of(A1_A1, A1_A2).collect(Collectors.toList()), Stream.of(combo1, combo2).collect(Collectors.toList()));
         // Precio Asientos              = $800
         // Precio Productos             = $1573
         // Precio Porcentaje ganacia    = 100%
@@ -58,7 +57,7 @@ public class TicketControllerTests extends TestResources {
 
     @Test
     public void carolinaCompra2EntradasConProductosYSinDescuento() {
-        ticketController.ejecutar(userCaro, funcionA_A1_blackWidow, Stream.of(A1_A1, A1_A2).collect(Collectors.toList()), Stream.of(gaseosaGrande).collect(Collectors.toList()));
+        compradorDeEntrada.ejecutar(userCaro, funcionA_A1_blackWidow, Stream.of(A1_A1, A1_A2).collect(Collectors.toList()), Stream.of(gaseosaGrande).collect(Collectors.toList()));
         // Precio Asientos              = $800
         // Precio Productos             = $300
         // Precio Porcentaje ganacia    = 100%

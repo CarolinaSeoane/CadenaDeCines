@@ -1,16 +1,14 @@
 package Security;
 
-import Business.Comentario;
-import Business.Pelicula;
-import Business.Persona;
-import Business.Reserva;
+import Business.*;
 import Security.Plan.Plan;
 import java.util.List;
 
 public class Cliente extends Usuario {
 
-    private List<Reserva> reservas;
     private Plan plan;
+    private List<Reserva> reservas;
+    private List<Cine> suscripciones;
 
     public int getDescuento() {
         return plan.getDescuento();
@@ -28,10 +26,21 @@ public class Cliente extends Usuario {
         plan.publicarComentario(comentario, pelicula);
     }
 
-    public Cliente(String nombreUsuario, String contraseña, Persona persona, List<Reserva> reservas, Plan plan) {
+    public void suscribirseA(Cine unCine) {
+        suscripciones.add(unCine);
+        unCine.suscribir(this.persona.getEmail());
+    }
+
+    public void desuscribirseDe(Cine unCine) {
+        suscripciones.remove(unCine);
+        unCine.desuscribir(this.persona.getEmail());
+    }
+
+    public Cliente(String nombreUsuario, String contraseña, Persona persona, Plan plan, List<Reserva> reservas, List<Cine> suscripciones) {
         super(nombreUsuario, contraseña, persona);
-        this.reservas = reservas;
         this.plan = plan;
+        this.reservas = reservas;
+        this.suscripciones = suscripciones;
     }
 
 }

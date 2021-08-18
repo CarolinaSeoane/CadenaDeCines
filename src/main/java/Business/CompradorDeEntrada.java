@@ -1,4 +1,4 @@
-package Controllers;
+package Business;
 
 import Business.*;
 import Business.Composite.Producto;
@@ -11,7 +11,7 @@ import java.util.UUID;
  * Esto tambien nos permitira realizar los tests correspondientes.
  */
 
-public class TicketController {
+public class CompradorDeEntrada {
 
     public void ejecutar(Cliente cliente, Funcion funcion, List<Asiento> asientos, List<Producto> productos) {
         int precioAsientos = funcion.comprarAsientos(asientos);

@@ -5,7 +5,6 @@ import Services.SchedulerService.QuartzScheduler;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.io.IOException;
 
 public class SchedulerTest extends TestResources {
@@ -23,11 +22,12 @@ public class SchedulerTest extends TestResources {
 
     @Test
     public void seEjecutaLaPlanificacionEnTalHorario() throws Exception {
-        String fecha = "0 39 1 ? * 3"; // Cuando se pruebe, setearlo para 1 minuto despues de la hora actual.
+        String fecha = "0 0/1 * 1/1 * ? *"; // Cuando se pruebe, setearlo para 1 minuto despues de la hora actual.
         QuartzScheduler scheduler = new QuartzScheduler();
         scheduler.setCRON_EXPRESSION(fecha);
         scheduler.ejecutar();
         Thread.sleep(90000); // Esto hace que el hilo main se frene un poco mas de un minuto
         Assert.assertEquals(6, cineC.getAsignadorDeHorarios().getPeliculas().size());
     }
+
 }
