@@ -22,7 +22,7 @@ public class SchedulerTest extends TestResources {
 
     @Test
     public void seEjecutaLaPlanificacionEnTalHorario() throws Exception {
-        String fecha = "0 0/1 * 1/1 * ? *"; // Cuando se pruebe, setearlo para 1 minuto despues de la hora actual.
+        String fecha = "0 53 22 ? * 4"; // Cuando se pruebe, setearlo para 1 minuto despues de la hora actual.
         QuartzScheduler scheduler = new QuartzScheduler();
         scheduler.setCRON_EXPRESSION(fecha);
         scheduler.ejecutar();
