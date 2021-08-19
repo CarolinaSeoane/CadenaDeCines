@@ -7,9 +7,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class Asiento {
 
-    private float precio;
+    private int precio;
     private String nroAsiento;
     private Boolean habilitado;
-
 
 }

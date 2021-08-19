@@ -1,0 +1,2 @@
+SEARCH_URL=http://www.omdbapi.com/?t=TITLE&apikey=API_KEY
+API_KEY=f877a80d

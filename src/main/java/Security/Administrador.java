@@ -1,7 +1,11 @@
 package Security;
 
-import lombok.Data;
+import Business.Persona;
 
-@Data
-public class Administrador implements Rol {
+public class Administrador extends Usuario {
+
+    public Administrador(String nombreUsuario, String contraseña, Persona persona) {
+        super(nombreUsuario, contraseña, persona);
+    }
+
 }
