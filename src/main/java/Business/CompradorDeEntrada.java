@@ -1,6 +1,5 @@
 package Business;
 
-import Business.*;
 import Business.Composite.Producto;
 import Security.Cliente;
 import java.util.List;
@@ -18,10 +17,11 @@ public class CompradorDeEntrada {
         int precioProductos = this.calcularPrecioProductos(productos);
         int porcentajeGanancia = Cadena.getInstance().getPorcentajeGanancia();
         String cod_reserva = this.generarCodigoReserva();
+        String productosTotales = this.generarNombreProductos(productos);
         int descuento = cliente.getDescuento();
-
         int precioFinal = this.calcularPrecioFinal(precioAsientos + precioProductos, porcentajeGanancia - descuento);
-        Reserva reserva = new Reserva(funcion, asientos, productos, precioFinal, cod_reserva);
+
+        Reserva reserva = new Reserva(funcion, asientos, productosTotales, precioFinal, cod_reserva);
         cliente.guardarReserva(reserva);
     }
 
@@ -29,12 +29,30 @@ public class CompradorDeEntrada {
         return productos.stream().mapToInt(producto -> producto.getPrecio()).sum();
     }
 
-    public String generarCodigoReserva() {
+    private String generarCodigoReserva() {
         return UUID.randomUUID().toString();
     }
 
-    public int calcularPrecioFinal(int costo, int porcentajeGanancia) {
+    private int calcularPrecioFinal(int costo, int porcentajeGanancia) {
         return costo + ((costo * porcentajeGanancia) / 100);
+    }
+
+    public String generarNombreProductos(List<Producto> productos) {
+        String nombre = new String();
+        if (!productos.isEmpty()) {
+            for(int i = 0; i < productos.size(); i++) {
+                nombre = nombre + productos.get(i).getNombre() + " - ";
+            }
+        }
+        return sacarCaracterDeSobra(nombre);
+    }
+
+    private String sacarCaracterDeSobra(String cadena) {
+        if(cadena.endsWith(" - ")) {
+            return cadena.substring(0, cadena.length() - 3);
+        } else {
+            return cadena;
+        }
     }
 
 }

@@ -71,7 +71,7 @@ public class AsignadorDeHorarios {
     public Funcion crearFuncion(Pelicula p, DateTime f, Sala s) {
         List<Asiento> a = s.getAsientos();
         Map<Asiento,Boolean> disponibilidad = this.generarDisponibilidad(a);
-        return new Funcion(disponibilidad, p, f, s);
+        return new Funcion(disponibilidad, p.getTitulo(), f, s);
     }
 
     private Map<Asiento,Boolean> generarDisponibilidad(List<Asiento> asientos) {

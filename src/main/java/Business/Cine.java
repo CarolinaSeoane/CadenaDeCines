@@ -65,7 +65,7 @@ public class Cine {
         String resultado = "No dan esa película en ese horario";
         for(Funcion funcion: funciones){
             if(funcion.getFecha().getHourOfDay() == unHorario){
-                resultado = funcion.getPelicula().getTitulo();
+                resultado = funcion.getPelicula();
             }
         }
         return resultado;

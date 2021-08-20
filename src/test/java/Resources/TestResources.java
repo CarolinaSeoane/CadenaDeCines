@@ -196,7 +196,6 @@ public class TestResources {
         caro = new Persona(
                 "Carolina",
                 "Seoane",
-                new Date(2001, Calendar.FEBRUARY, 07),
                 TipoDoc.DNI,
                 43050214,
                 "carolina.b.seoane@gmail.com"
@@ -204,7 +203,6 @@ public class TestResources {
 
         facu = new Persona("Facundo",
                 "Verge",
-                new Date(2000, Calendar.OCTOBER, 05),
                 TipoDoc.DNI,
                 42952776,
                 "facu.verge@gmail.com"
@@ -227,14 +225,14 @@ public class TestResources {
     }
 
     public void inicializarProductos() {
-        this.pochocloChico = new ProductoSimple("Pochoclos", Tamanio.CHICO, 300);
-        this.pochocloGrande = new ProductoSimple("Pochoclos", Tamanio.GRANDE, 550);
-        this.nachosMedianos = new ProductoSimple("Nachos",Tamanio.MEDIANO, 400);
-        this.gaseosaGrande = new ProductoSimple("Gaseosa", Tamanio.GRANDE, 300);
+        this.pochocloChico = new ProductoSimple("Pochoclos Chicos", Tamanio.CHICO, 300);
+        this.pochocloGrande = new ProductoSimple("Pochoclos Grandes", Tamanio.GRANDE, 550);
+        this.nachosMedianos = new ProductoSimple("Nachos Medianos",Tamanio.MEDIANO, 400);
+        this.gaseosaGrande = new ProductoSimple("Gaseosa Grande", Tamanio.GRANDE, 300);
 
-        this.combo1 = new Combo(Stream.of(pochocloGrande, gaseosaGrande).collect(Collectors.toList()));
-        this.combo2 = new Combo(Stream.of(pochocloChico, nachosMedianos, gaseosaGrande).collect(Collectors.toList()));
-        this.combo3 = new Combo(Stream.of(pochocloGrande, gaseosaGrande, gaseosaGrande).collect(Collectors.toList()));
+        this.combo1 = new Combo("Combo 1", Stream.of(pochocloGrande, gaseosaGrande).collect(Collectors.toList()));
+        this.combo2 = new Combo("Combo 2", Stream.of(pochocloChico, nachosMedianos, gaseosaGrande).collect(Collectors.toList()));
+        this.combo3 = new Combo("Combo 3", Stream.of(pochocloGrande, gaseosaGrande, gaseosaGrande).collect(Collectors.toList()));
     }
 
     public void inicializarTicketController() {
@@ -284,7 +282,6 @@ public class TestResources {
                 new Premium(),
                 new ArrayList<>(),
                 new ArrayList<>()
-
         );
     }
 
@@ -292,7 +289,7 @@ public class TestResources {
         this.inicializarPersonas();
         this.adminCaro = new Administrador("caro", "hola", this.caro);
         this.adminFacu = new Administrador("facu", "hola2", this.facu);
-        this.adminFacu = new Administrador("juan", "hola3", new Persona("Juan", "Paz", new Date(2000, Calendar.MAY, 23),TipoDoc.DNI, 45324445,"pancho@gmail.com"));
+        this.adminFacu = new Administrador("juan", "hola3", new Persona("Juan", "Paz", TipoDoc.DNI, 45324445,"pancho@gmail.com"));
     }
 
 }

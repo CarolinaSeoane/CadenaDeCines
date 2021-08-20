@@ -8,7 +8,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ProductoSimple implements Producto {
 
-    private String tipo;
+    private String nombre;
     private Tamanio tamanio;
     private int precio;
 

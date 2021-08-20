@@ -11,7 +11,7 @@ import java.util.Map;
 public class Funcion {
 
     private Map<Asiento,Boolean> disponibilidad;
-    private Pelicula pelicula;
+    private String pelicula;
     private DateTime fecha;
     private Sala sala;
 

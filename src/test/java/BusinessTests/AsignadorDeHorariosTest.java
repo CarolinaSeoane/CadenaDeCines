@@ -132,12 +132,12 @@ public class AsignadorDeHorariosTest extends TestResources {
 
     @Test
     public void laSala3DelCineAPasaRatatouilleComoUltimaPelicula(){
-        Assert.assertEquals(ratatouille, cineA.getFunciones().get(salaA3).get(4).getPelicula());
+        Assert.assertEquals("Ratatouille", cineA.getFunciones().get(salaA3).get(4).getPelicula());
     }
 
     @Test
     public void laSala1DelCineAPasaBackToTheFutureComoPrimerPelicula(){
-        Assert.assertEquals(backToTheFuture, cineA.getFunciones().get(salaA1).get(0).getPelicula());
+        Assert.assertEquals("Back to the Future", cineA.getFunciones().get(salaA1).get(0).getPelicula());
     }
 
     // ------------------------ TESTS SOBRE EL CINE B -----------------------
@@ -160,7 +160,7 @@ public class AsignadorDeHorariosTest extends TestResources {
 
     @Test
     public void laSala1DelCineCPasaBackToTheFutureComoPrimerPelicula(){
-        Assert.assertEquals(backToTheFuture, cineC.getFunciones().get(salaC1).get(0).getPelicula());
+        Assert.assertEquals("Back to the Future", cineC.getFunciones().get(salaC1).get(0).getPelicula());
     }
 
 }

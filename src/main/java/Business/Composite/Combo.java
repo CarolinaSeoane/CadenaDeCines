@@ -9,6 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Combo implements Producto {
 
+    private String nombre;
     private List<Producto> productos;
 
     @Override

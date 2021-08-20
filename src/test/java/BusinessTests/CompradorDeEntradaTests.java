@@ -14,7 +14,6 @@ public class CompradorDeEntradaTests extends TestResources {
     @Before
     public void inicializar() throws IOException {
         this.inicializarCadena();
-        this.inicializarPeliculas();
         this.inicializarAsientos();
         this.inicializarSalas();
         this.inicializarProductos();
@@ -64,6 +63,26 @@ public class CompradorDeEntradaTests extends TestResources {
         // Descuento por ser Premium    = 0%
         // PRECIO FINAL                 = 1100 + 1100 = 2200
         Assert.assertEquals(2200, userCaro.getReservas().stream().findFirst().get().getCostoTotal());
+    }
+
+    @Test
+    public void generoNombrePochoclosYNachos() {
+        Assert.assertEquals("Pochoclos Chicos - Nachos Medianos", compradorDeEntrada.generarNombreProductos(Stream.of(pochocloChico, nachosMedianos).collect(Collectors.toList())));
+    }
+
+    @Test
+    public void generoNombreCuandoNoHayProductos() {
+        Assert.assertEquals("", compradorDeEntrada.generarNombreProductos(new ArrayList<>()));
+    }
+
+    @Test
+    public void generoNombreCombo1() {
+        Assert.assertEquals("Combo 1", compradorDeEntrada.generarNombreProductos(Stream.of(combo1).collect(Collectors.toList())));
+    }
+
+    @Test
+    public void generoNombreCombo1Combo2YGaseosaGrande() {
+        Assert.assertEquals("Combo 1 - Combo 2 - Gaseosa Grande", compradorDeEntrada.generarNombreProductos(Stream.of(combo1, combo2, gaseosaGrande).collect(Collectors.toList())));
     }
 
 }
