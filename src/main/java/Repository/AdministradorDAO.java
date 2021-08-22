@@ -3,7 +3,6 @@ package Repository;
 import Business.Enums.TipoDoc;
 import Business.Persona;
 import Security.Administrador;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,7 +16,12 @@ public class AdministradorDAO {
         try {
             stmt = conn.getConnection().createStatement();
             // TODO: recuperar fk del cine de la bbdd e insertar el admin con esa fk
-            String insertQuery = "INSERT INTO admin (nombre, apellido, tipoDoc, nroDoc, email, nombreUsuario, contrasenia) VALUES ("
+
+            /* insert into "order" (customer_id, price) values
+((select customer_id from customer where name = 'John'), 22.45);*/
+
+            String insertQuery = "INSERT INTO Admin (id_cine, nombre, apellido, tipoDoc, nroDoc, email, nombreUsuario, contrasenia) VALUES ("
+                    + "(SELECT id_cine from Cine WHERE nombre = '" + admin.getCine().getNombre() + "'), "
                     + "'" + admin.getPersona().getNombre() + "'"
                     + ", "
                     + "'" + admin.getPersona().getApellido() + "'"
@@ -44,14 +48,14 @@ public class AdministradorDAO {
     }
 
     // Decidi que la busqueda sea por nombreUsuario porque es el dato que uno pone para el log in pero podria ser otro
-    public Administrador SELECTAdmin(String nombreUsuario) {
+ /*   public Administrador SELECTAdmin(String nombreUsuario) {
         DBConnection conn = new DBConnection();
         Statement stmt = null;
         Administrador admin = null;
         try {
             stmt = conn.getConnection().createStatement();
 
-            String selectQuery = "SELECT * FROM admin WHERE nombreUsuario = '" + nombreUsuario + "'";
+            String selectQuery = "SELECT * FROM Admin WHERE nombreUsuario = '" + nombreUsuario + "'";
 
             ResultSet rs = stmt.executeQuery(selectQuery);
             if(rs.next()) {
@@ -61,9 +65,10 @@ public class AdministradorDAO {
                 int nroDoc = rs.getInt("nroDoc");
                 String email = rs.getString("email");
                 String contrasenia = rs.getString("contrasenia");
+                String cine = rs.getString("cine");
 
                 Persona adminPersona = new Persona(nombre, apellido, tipoDoc, nroDoc, email);
-                admin = new Administrador(nombreUsuario, contrasenia, adminPersona);
+                admin = new Administrador(nombreUsuario, contrasenia, adminPersona, admin.getCine());
             }
 
         } catch (SQLException e) {
@@ -74,6 +79,6 @@ public class AdministradorDAO {
             try { conn.desconectar(); } catch (Exception e) { }
         }
         return admin;
-    }
+    }*/
 
 }

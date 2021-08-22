@@ -287,9 +287,9 @@ public class TestResources {
 
     public void inicializarAdministradores() {
         this.inicializarPersonas();
-        this.adminCaro = new Administrador("caro", "hola", this.caro);
-        this.adminFacu = new Administrador("facu", "hola2", this.facu);
-        this.adminFacu = new Administrador("juan", "hola3", new Persona("Juan", "Paz", TipoDoc.DNI, 45324445,"pancho@gmail.com"));
+        this.adminCaro = new Administrador("caro", "hola", this.caro, cineA);
+        this.adminFacu = new Administrador("facu", "hola2", this.facu, cineB);
+        this.adminFacu = new Administrador("juan", "hola3", new Persona("Juan", "Paz", TipoDoc.DNI, 45324445,"pancho@gmail.com"), cineC);
     }
 
 }
