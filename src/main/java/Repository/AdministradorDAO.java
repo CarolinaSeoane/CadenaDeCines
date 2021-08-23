@@ -15,10 +15,6 @@ public class AdministradorDAO {
 
         try {
             stmt = conn.getConnection().createStatement();
-            // TODO: recuperar fk del cine de la bbdd e insertar el admin con esa fk
-
-            /* insert into "order" (customer_id, price) values
-((select customer_id from customer where name = 'John'), 22.45);*/
 
             String insertQuery = "INSERT INTO Admin (id_cine, nombre, apellido, tipoDoc, nroDoc, email, nombreUsuario, contrasenia) VALUES ("
                     + "(SELECT id_cine from Cine WHERE nombre = '" + admin.getCine().getNombre() + "'), "
@@ -26,7 +22,7 @@ public class AdministradorDAO {
                     + ", "
                     + "'" + admin.getPersona().getApellido() + "'"
                     + ", "
-                    + "'" + admin.getPersona().getTipoDoc().toString() + "'" // Es mas facil guardarlo como varchar
+                    + "'" + admin.getPersona().getTipoDoc().toString() + "'"
                     + ", "
                     + admin.getPersona().getNroDoc()
                     + ", "

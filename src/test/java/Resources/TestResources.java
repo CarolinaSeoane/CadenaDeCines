@@ -2,7 +2,6 @@ package Resources;
 
 import Business.*;
 import Business.Composite.Combo;
-import Business.Composite.Producto;
 import Business.Composite.ProductoSimple;
 import Business.Enums.Tamanio;
 import Business.Enums.TipoDoc;
@@ -14,6 +13,7 @@ import Security.Administrador;
 import Security.Cliente;
 import Security.Plan.Basico;
 import Security.Plan.Premium;
+import Security.SuperAdministrador;
 import org.joda.time.DateTime;
 import java.io.IOException;
 import java.util.*;
@@ -72,10 +72,10 @@ public class TestResources {
     protected AsignadorDeHorarios asignadorDeHorariosC;
 
     // Productos
-    protected Producto pochocloChico;
-    protected Producto pochocloGrande;
-    protected Producto nachosMedianos;
-    protected Producto gaseosaGrande;
+    protected ProductoSimple pochocloChico;
+    protected ProductoSimple pochocloGrande;
+    protected ProductoSimple nachosMedianos;
+    protected ProductoSimple gaseosaGrande;
 
     protected Combo combo1;
     protected Combo combo2;
@@ -102,6 +102,9 @@ public class TestResources {
     protected Administrador adminCaro;
     protected Administrador adminFacu;
     protected Administrador adminJuan;
+
+    // Usuarios SuperAdmins
+    protected SuperAdministrador superAdminPedro;
 
     protected BuscadorDePeliculas peliculasController;
 
@@ -139,17 +142,17 @@ public class TestResources {
         this.B1_A1 = new Asiento(500, "B1_A1", true);
         this.B2_A1 = new Asiento(400, "B2_A1", true);
         this.B2_A2 = new Asiento(600, "B2_A2", true);
-        this.C1_A1 = new Asiento(600, "B2_A2", true);
-        this.C1_A2 = new Asiento(600, "B2_A2", true);
+        this.C1_A1 = new Asiento(600, "C1_A1", true);
+        this.C1_A2 = new Asiento(600, "C1_A2", true);
     }
 
     public void inicializarSalas() {
-        this.salaA1 = new Sala(Stream.of(A1_A1, A1_A2).collect(Collectors.toList()));
-        this.salaA2 = new Sala(Stream.of(A2_A1).collect(Collectors.toList()));
-        this.salaA3 = new Sala(Stream.of(A3_A1, A3_A2).collect(Collectors.toList()));
-        this.salaB1 = new Sala(Stream.of(B1_A1).collect(Collectors.toList()));
-        this.salaB2 = new Sala(Stream.of(B2_A1, B2_A2).collect(Collectors.toList()));
-        this.salaC1 = new Sala(Stream.of(C1_A1, C1_A2).collect(Collectors.toList()));
+        this.salaA1 = new Sala("SalaA1", Stream.of(A1_A1, A1_A2).collect(Collectors.toList()));
+        this.salaA2 = new Sala("SalaA2", Stream.of(A2_A1).collect(Collectors.toList()));
+        this.salaA3 = new Sala("SalaA3", Stream.of(A3_A1, A3_A2).collect(Collectors.toList()));
+        this.salaB1 = new Sala("SalaB1", Stream.of(B1_A1).collect(Collectors.toList()));
+        this.salaB2 = new Sala("SalaB2", Stream.of(B2_A1, B2_A2).collect(Collectors.toList()));
+        this.salaC1 = new Sala("SalaC1", Stream.of(C1_A1, C1_A2).collect(Collectors.toList()));
     }
 
     public void inicializarFunciones() {
@@ -290,6 +293,10 @@ public class TestResources {
         this.adminCaro = new Administrador("caro", "hola", this.caro, cineA);
         this.adminFacu = new Administrador("facu", "hola2", this.facu, cineB);
         this.adminFacu = new Administrador("juan", "hola3", new Persona("Juan", "Paz", TipoDoc.DNI, 45324445,"pancho@gmail.com"), cineC);
+    }
+
+    public void inicializarSuperAdmins() {
+        this.superAdminPedro = new SuperAdministrador("pedroSuperAdmin", "admin", new Persona("Pedro", "Pedrin", TipoDoc.DNI, 45324445,"pedrito_clavo_un_clavito@gmail.com"));
     }
 
 }
