@@ -8,7 +8,10 @@ public class DBConnection {
 
     public DBConnection() {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/CadenaDeCines?" + "user=root");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/?" + "user=root");
+            Statement s = conn.createStatement();
+            int Result = s.executeUpdate("CREATE DATABASE IF NOT EXISTS Cadena_De_Cines");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/Cadena_De_Cines?" + "user=root");
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());

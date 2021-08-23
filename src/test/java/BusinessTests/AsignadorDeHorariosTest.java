@@ -131,8 +131,8 @@ public class AsignadorDeHorariosTest extends TestResources {
     }
 
     @Test
-    public void laSala3DelCineAPasaRatatouilleComoUltimaPelicula(){
-        Assert.assertEquals("Ratatouille", cineA.getFunciones().get(salaA3).get(4).getPelicula());
+    public void laSala2DelCineAPasaRatatouilleComoPrimeraPelicula(){
+        Assert.assertEquals("Ratatouille", cineA.getFunciones().get(salaA2).stream().findFirst().get().getPelicula());
     }
 
     @Test

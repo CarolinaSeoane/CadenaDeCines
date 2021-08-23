@@ -47,7 +47,7 @@ public class DBResources extends TestResources {
                 + " id_cadena enum('1'),"
                 + " nombre varchar(50),"
                 + " direccion varchar(50),"
-                + " FOREIGN KEY (id_cadena) REFERENCES cadena(id_cadena))";
+                + " FOREIGN KEY (id_cadena) REFERENCES Cadena(id_cadena))";
 
         Statement stmt = conn.getConnection().createStatement();
         stmt.execute(sqlCreate);
@@ -58,7 +58,6 @@ public class DBResources extends TestResources {
         cineDAO.INSERTCine(cineA);
         cineDAO.INSERTCine(cineB);
         cineDAO.INSERTCine(cineC);
-
 
     }
 
