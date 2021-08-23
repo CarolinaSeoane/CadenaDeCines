@@ -8,6 +8,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Sala {
 
+    private String nombre;
     private List<Asiento> asientos;
 
     public int precioAsientos(List<Asiento> asientos) {

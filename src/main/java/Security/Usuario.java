@@ -18,4 +18,10 @@ public abstract class Usuario {
         return this.nombreUsuario;
     }
 
+    public Persona getPersona() {
+        return this.persona;
+    }
+
+    public String getContraseña() {return  this.contraseña;}
+
 }
