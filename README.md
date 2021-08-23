@@ -7,11 +7,12 @@ Sistema destinado a la **venta de entradas por internet** de una cadena de cines
 
 
 ## Información complementaria ⚙️
-* [Consigna](https://docs.google.com/document/d/1MEDe5afwSbCY26yUiI2aOA1W2adVjBYBqx1JpgOfF34/edit?usp=sharing)
-* [Diagrama de clases](https://lucid.app/lucidchart/invitations/accept/inv_28e72fbd-acc1-49cf-8cce-74e3ce45c9f5)
-* [Diagrama Entidad Relación](https://lucid.app/lucidchart/invitations/accept/inv_28e72fbd-acc1-49cf-8cce-74e3ce45c9f5)
-* [Wireframes](https://lucid.app/lucidchart/invitations/accept/inv_28e72fbd-acc1-49cf-8cce-74e3ce45c9f5)
-* [Video](https://lucid.app/lucidchart/invitations/accept/inv_28e72fbd-acc1-49cf-8cce-74e3ce45c9f5)
+* [Requerimientos](https://docs.google.com/document/d/1MEDe5afwSbCY26yUiI2aOA1W2adVjBYBqx1JpgOfF34/edit?usp=sharing)
+* [Diagrama de clases](https://drive.google.com/file/d/1T0H-ClX8xtRu4grbGoBSrnjrfijE7DAE/view?usp=sharing)
+* [Diagrama Entidad Relación](https://drive.google.com/file/d/1NEOfr7ihQAMJ7YWvja8xQhdbS-FEwOgV/view?usp=sharing)
+* [Diagrama de secuencia - quiero comprar una entrada](https://drive.google.com/file/d/1yqqzygThWSH1t_PGUcYLC59PzRiG7yxf/view?usp=sharing)
+* [Wireframes](https://drive.google.com/file/d/1mgFH9f4N-9fnK688KPSFi7w4l0PlHQP5/view?usp=sharing)
+* [Video](https://drive.google.com/drive/folders/16PDH-MyArONwKYRJ57TFEyLIO6Fr8it7?usp=sharing)
 
 ## Alumnos 📌
 
